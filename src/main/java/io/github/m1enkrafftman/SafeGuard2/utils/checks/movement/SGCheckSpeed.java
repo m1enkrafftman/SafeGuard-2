@@ -48,8 +48,7 @@ public class SGCheckSpeed extends SGCheck {
 		if(SGBlockUtil.isInWeb(thread)) multi *= 0.12;
 		
 		//TODO: Potions
-		//FIXME: the current method is completely borked
-		//multi *= getSpeedAmplifier(thread.getPlayer());
+		multi *= getSpeedAmplifier(thread.getPlayer());
 		
 		double deltaVL = 0.0;
 		if(onGround(sgPlayer)) 
@@ -63,8 +62,7 @@ public class SGCheckSpeed extends SGCheck {
 					thread.addVL(checkTag, 10*(delta-data.getSprint()));
 					publish = true;
 				}
-			}
-			else {
+			} else {
 				if(delta > data.getWalk()*multi) {
 					deltaVL = 10*(delta-(data.getWalk()*multi));
 					thread.addVL(checkTag, 10*(delta-data.getWalk()));
@@ -76,7 +74,7 @@ public class SGCheckSpeed extends SGCheck {
 				this.publishCheck(checkTag, thread);
 				thread.resetMove();
 
-			}else {
+			} else {
 				thread.lowerVL(checkTag);
 				thread.setSafeLocation(sgPlayer.getLocation());
 			}
