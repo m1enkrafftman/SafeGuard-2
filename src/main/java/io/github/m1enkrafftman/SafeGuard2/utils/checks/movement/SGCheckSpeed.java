@@ -45,7 +45,9 @@ public class SGCheckSpeed extends SGCheck {
 		
 		if(thread.isOnIce()) multi *= 1.325;
 		
-		if(SGBlockUtil.isInWeb(thread)) multi *= 0.12;
+		boolean inWeb = SGBlockUtil.isInWeb(thread); 
+		
+		if(inWeb) multi *= 0.12;
 		
 		//TODO: Potions
 		multi *= getSpeedAmplifier(thread.getPlayer());
@@ -70,9 +72,11 @@ public class SGCheckSpeed extends SGCheck {
 				}
 			}
 			if(publish == true) {
-				thread.addVL(checkTag, 10);
-				this.publishCheck(checkTag, thread);
-				thread.resetMove();
+				if(inWeb) thread.addVL(checkTag, 10);
+				if(deltaVL > 1) {
+					this.publishCheck(checkTag, thread);
+					thread.resetMove();
+				}
 
 			} else {
 				thread.lowerVL(checkTag);
