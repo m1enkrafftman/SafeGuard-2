@@ -397,14 +397,6 @@ public class PlayerThread extends Thread {
 				|| SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH_EAST))
 				|| SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH_EAST));
 	}
-	
-	/**
-	 * Checks to see if the player is in a web.
-	 * @return boolean
-	 */
-	public boolean isInWeb() {
-		return myPlayer.getLocation().getBlock().getType() == Material.WEB;
-	}
 
 	public double getVL(SGCheckTag tag) {
 		return (this.myVlMap.get(tag).doubleValue());
