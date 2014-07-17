@@ -59,7 +59,9 @@ public class FileManager {
 				}
 			}		
 		} catch (FileNotFoundException e) {
+			//So basically you're screwed here.
 		} catch (IOException e) {
+			//No, seriously; you're completely fucked now.
 		} finally {
 			try {
 				if (bufferedFileReader != null) {
@@ -78,14 +80,16 @@ public class FileManager {
 		BufferedWriter bufferedWriter = null;
 		try {
 			myOutputManager.log("Writing output...");
-			bufferedWriter = new BufferedWriter(new FileWriter(sgDirectoryConfig, true));
+			bufferedWriter = new BufferedWriter(new FileWriter(sgDirectoryConfig, false));
 
 			bufferedWriter.write("walk=" + myDataConfig.getWalk()+
 					"\nsneak=" + myDataConfig.getSneak()+
 					"\nsprint=" + myDataConfig.getSprint());
 			
 		} catch (FileNotFoundException e) {
+			//Who cares?
 		} catch (IOException e) {
+			//No, seriously?
 		} finally {
 			try {
 				if (bufferedWriter != null) {

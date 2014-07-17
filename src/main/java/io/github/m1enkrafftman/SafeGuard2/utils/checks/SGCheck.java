@@ -136,6 +136,7 @@ public class SGCheck {
 
 	/** Returns whether the player is above stairs. */
 	public static boolean isOnLadder(Player sgPlayer){
+		//Because fuck you, I'm spiderman
 		final Block block = sgPlayer.getLocation().getBlock();
 		final Block altBlock = sgPlayer.getLocation().add(0,0.5,0).getBlock();
 		return SGBlockUtil.isLadder(block.getRelative(BlockFace.NORTH))
