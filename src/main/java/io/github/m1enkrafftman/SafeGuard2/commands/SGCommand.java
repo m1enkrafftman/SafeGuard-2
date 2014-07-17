@@ -44,7 +44,7 @@ public abstract class SGCommand
 			return false;
 		}
 
-		if (!sender.hasPermission(PermissionNodes.INFO_ADMIN))
+		if (!sender.hasPermission(permission))
 		{ 
 			sendChatMessage(sender, ChatColor.RED + "You do not have permission to use this command.");
 			return true;

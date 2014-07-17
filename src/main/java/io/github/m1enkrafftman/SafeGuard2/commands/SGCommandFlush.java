@@ -10,6 +10,7 @@ public class SGCommandFlush extends SGCommand {
 	public SGCommandFlush() {
 		this.name = "flush";
 		this.argumentCount = 1;
+		this.consoleExecute = true;
 		this.permission = PermissionNodes.INFO_ADMIN;
 		this.usage = new StringBuilder().append(ChatColor.GOLD).append("/safeguard flush").toString();
 		this.description = "Flushes and re-initializes player threads.";

@@ -3,12 +3,14 @@ package io.github.m1enkrafftman.SafeGuard2.commands;
 import org.bukkit.ChatColor;
 
 import io.github.m1enkrafftman.SafeGuard2.SafeGuard2;
+import io.github.m1enkrafftman.SafeGuard2.core.PermissionNodes;
 
 public class SGCommandGetData extends SGCommand {
 
 	public SGCommandGetData() {
 		this.name = "data";
 		this.argumentCount = 1;
+		this.permission = PermissionNodes.INFO_ADMIN;
 		this.usage = new StringBuilder().append(ChatColor.GOLD).append("/safeguard data").toString();
 		this.description = "Prints gathered heuristic information to the console.";
 	}

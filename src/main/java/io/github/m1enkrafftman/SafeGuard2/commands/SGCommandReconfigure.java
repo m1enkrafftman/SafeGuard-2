@@ -10,6 +10,7 @@ public class SGCommandReconfigure extends SGCommand {
 	public SGCommandReconfigure() {
 		this.name = "configure";
 		this.argumentCount = 1;
+		this.consoleExecute = true;
 		this.permission = PermissionNodes.INFO_ADMIN;
 		this.usage = new StringBuilder().append(ChatColor.GOLD).append("/safeguard configure").toString();
 		this.description = "Reconfigures the heuristics based on gathered data.";

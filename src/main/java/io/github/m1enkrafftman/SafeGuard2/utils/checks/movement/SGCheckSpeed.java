@@ -5,6 +5,8 @@ import io.github.m1enkrafftman.SafeGuard2.core.PermissionNodes;
 import io.github.m1enkrafftman.SafeGuard2.core.SGPermissions;
 import io.github.m1enkrafftman.SafeGuard2.heuristics.DataConfiguration;
 import io.github.m1enkrafftman.SafeGuard2.utils.MathHelper;
+import io.github.m1enkrafftman.SafeGuard2.utils.SGBlockUtil;
+import io.github.m1enkrafftman.SafeGuard2.utils.SGMovementUtil;
 import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheck;
 import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheckTag;
 import io.github.m1enkrafftman.SafeGuard2.utils.player.PlayerThread;
@@ -37,19 +39,19 @@ public class SGCheckSpeed extends SGCheck {
 				SafeGuard2.getSafeGuard().getDataGatherer().addWalk(delta);
 		}
 		if(SGPermissions.hasPermission(thread.getPlayer(), PermissionNodes.MOVEMENT_SPEED)) return;
+		DataConfiguration data = SafeGuard2.getSafeGuard().getDataConfig();
 		boolean publish = false;
-		//TODO: Delta time set
 		double multi = 1.0;
-		//TODO: Web check
 		
 		if(thread.isOnIce()) multi *= 1.325;
+		
+		if(SGBlockUtil.isInWeb(thread)) multi *= 0.12;
 		
 		//TODO: Potions
 		//FIXME: the current method is completely borked
 		//multi *= getSpeedAmplifier(thread.getPlayer());
 		
 		double deltaVL = 0.0;
-		DataConfiguration data = SafeGuard2.getSafeGuard().getDataConfig();
 		if(onGround(sgPlayer)) 
 		{
 			if(delta > biggestDelta) {
@@ -57,27 +59,23 @@ public class SGCheckSpeed extends SGCheck {
 			}
 			if(sgPlayer.isSprinting()) {
 				if(delta > data.getSprint()*multi) {
-					deltaVL = 10*(delta-data.getSprint());
+					deltaVL = 10*(delta-(data.getSprint()*multi));
 					thread.addVL(checkTag, 10*(delta-data.getSprint()));
 					publish = true;
-				}else {
-					thread.addVL(checkTag, -10.0);
 				}
 			}
 			else {
 				if(delta > data.getWalk()*multi) {
-					deltaVL = 10*(delta-data.getWalk());
+					deltaVL = 10*(delta-(data.getWalk()*multi));
 					thread.addVL(checkTag, 10*(delta-data.getWalk()));
 					publish = true;
-				}else {
-					thread.addVL(checkTag, -10.0);
 				}
 			}
 			if(publish == true) {
-				if(deltaVL > 1) {
-					this.publishCheck(checkTag, thread);
-					thread.resetMove();
-				}
+				thread.addVL(checkTag, 10);
+				this.publishCheck(checkTag, thread);
+				thread.resetMove();
+
 			}else {
 				thread.lowerVL(checkTag);
 				thread.setSafeLocation(sgPlayer.getLocation());
