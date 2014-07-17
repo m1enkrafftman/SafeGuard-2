@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -395,6 +396,14 @@ public class PlayerThread extends Thread {
 		return (SGBlockUtil.isIce(block) || SGBlockUtil.isIce(blockLower) || SGBlockUtil.isIce(blockLowest) || SGBlockUtil.isIce(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.NORTH_EAST)))
 				|| SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH_EAST))
 				|| SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH_EAST));
+	}
+	
+	/**
+	 * Checks to see if the player is in a web.
+	 * @return boolean
+	 */
+	public boolean isInWeb() {
+		return myPlayer.getLocation().getBlock().getType() == Material.WEB;
 	}
 
 	public double getVL(SGCheckTag tag) {
