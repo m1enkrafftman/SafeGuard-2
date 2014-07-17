@@ -234,6 +234,25 @@ public class SGBlockUtil {
 				|| block.getType() == Material.SMOOTH_STAIRS
 				|| block.getType() == Material.WOOD_DOUBLE_STEP;
 	}
+	
+	/**
+	 * Returns all adjacent blocks to the specified blocks, including
+	 * the block itself.
+	 */
+	public static Block[] getAdjacentBlocks(Block block)
+	{
+		Block[] toReturn = new Block[9];
+		toReturn[0] = block;
+		toReturn[1] = block.getRelative(BlockFace.NORTH);
+		toReturn[2] = block.getRelative(BlockFace.EAST);
+		toReturn[3] = block.getRelative(BlockFace.SOUTH);
+		toReturn[4] = block.getRelative(BlockFace.WEST);
+		toReturn[5] = block.getRelative(BlockFace.NORTH_EAST);
+		toReturn[6] = block.getRelative(BlockFace.SOUTH_EAST);
+		toReturn[7] = block.getRelative(BlockFace.NORTH_WEST);
+		toReturn[8] = block.getRelative(BlockFace.SOUTH_WEST);
+		return toReturn;
+	}
 
 	/** Is the block able to be harvestable with the hand alone? */
 	private static boolean possibleBreakWithHand(Block block) {
@@ -251,6 +270,17 @@ public class SGBlockUtil {
 	/** Returns true if the specified Block is ice. */
 	public static boolean isIce(final Block block) {
 		return block.getType() == Material.ICE;
+	}
+	
+	/** Returns true if the specified Block is cobweb. */
+	public static boolean isWeb(final Block block) {
+		return block.getType() == Material.WEB;
+	}
+	
+	/** Retrusn true if the specified Block is soulsand. */
+	public static boolean isSoulSand(final Block block)
+	{
+		return block.getType() == Material.SOUL_SAND;
 	}
 
 	/** Returns true if the block is a ladder **/
