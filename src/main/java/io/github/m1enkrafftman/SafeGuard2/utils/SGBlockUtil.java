@@ -239,7 +239,7 @@ public class SGBlockUtil {
 				|| block.getType() == Material.SMOOTH_STAIRS
 				|| block.getType() == Material.WOOD_DOUBLE_STEP;
 	}
-
+	
 	/** Is the block able to be harvestable with the hand alone? */
 	private static boolean possibleBreakWithHand(Block block) {
 		for(Material i : possibleWithHand) {

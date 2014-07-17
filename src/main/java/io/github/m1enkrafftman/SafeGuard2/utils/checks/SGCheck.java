@@ -60,7 +60,17 @@ public class SGCheck {
 
 	/** Returns the player speed amplifier. */
 	public static float getSpeedAmplifier(Player sgPlayerHandle) {
-		return (sgPlayerHandle.hasPotionEffect(PotionEffectType.SPEED) ? 2.25F : 1F);
+		float toReturn = 1F;
+		
+		for (PotionEffect effect : sgPlayerHandle.getActivePotionEffects()) {
+			if (effect.getType() == PotionEffectType.SPEED) {
+				toReturn *= 1.0f + (0.2f * (effect.getAmplifier() + 1));
+			}
+			if (effect.getType() == PotionEffectType.SLOW) {
+				toReturn *= 1.0f - (0.15f * (effect.getAmplifier() + 1));
+			}
+		}
+		return toReturn;
 	}
 
 	/** Returns the player jump amplifier. */
