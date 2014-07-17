@@ -13,6 +13,11 @@ import org.bukkit.entity.Player;
 
 public class SGCheckSpeed extends SGCheck {
 
+	/* 
+	 * I am aware that this whole thing is just awful. But it works,
+	 * so piss off.
+	 */
+	
 	private static double biggestDelta = 0.0;
 	
 	@Override
@@ -42,6 +47,7 @@ public class SGCheckSpeed extends SGCheck {
 		if(thread.isOnIce()) multi *= 1.325;
 		
 		//TODO: Potions
+		//FIXME: the current method is completely borked
 		//multi *= getSpeedAmplifier(thread.getPlayer());
 		
 		//TODO: You slow down while blocking

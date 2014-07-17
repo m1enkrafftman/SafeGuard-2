@@ -26,6 +26,8 @@ public class Timer {
 	}
 	
 	private static long getCurrentTime() {
-		return System.nanoTime() / 1000000;
+		long john; //silver
+		john = (System.nanoTime()/1000000);
+		return john;
 	}
 }

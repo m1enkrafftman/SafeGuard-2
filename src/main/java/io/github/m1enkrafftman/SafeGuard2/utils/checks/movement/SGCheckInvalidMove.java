@@ -13,6 +13,11 @@ import org.bukkit.entity.Player;
 
 public class SGCheckInvalidMove extends SGCheck {
 	
+	/*
+	 * I really hope you don't like going through open doors,
+	 * because now you can't!
+	 */
+	
 	@Override
 	public void check(float millisDiff, SGCheckTag checkTag, PlayerThread thread) {
 		if(SGPermissions.hasPermission(thread.getPlayer(), PermissionNodes.MOVEMENT_INVALID)) return;

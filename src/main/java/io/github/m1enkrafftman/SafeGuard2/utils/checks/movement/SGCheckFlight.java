@@ -10,6 +10,7 @@ public class SGCheckFlight extends SGCheck {
 	
 	private double myLastYMove = 0.0;
 	
+	//Magic, do not touch
 	public static double FLIGHT_TICK_LIMIT = 4;
 	
 	@Override

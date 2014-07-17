@@ -18,7 +18,8 @@ public class SGCheckSneak extends SGCheck {
 	@Override
 	public void check(float millisDiff, SGCheckTag checkTag, PlayerThread thread) {
 		if(SGPermissions.hasPermission(thread.getPlayer(), PermissionNodes.MOVEMENT_SPEED)) return;
-		double delta = MathHelper.getHorizontalDistance(thread.getPlayer().getLocation(), 
+		double penetration; //Ouch
+		penetration = MathHelper.getHorizontalDistance(thread.getPlayer().getLocation(), 
 				thread.getLastLocation());
 		boolean publish = false;
 		DataConfiguration data = SafeGuard2.getSafeGuard().getDataConfig();
@@ -27,8 +28,8 @@ public class SGCheckSneak extends SGCheck {
 		{
 			if(sgPlayer.isSneaking()) {
 				lastTickSneaking = true;
-				if(delta > data.getSneak() && lastTickSneaking) {
-					thread.addVL(checkTag, 10*(delta-data.getSneak()));
+				if(penetration > data.getSneak() && lastTickSneaking) {
+					thread.addVL(checkTag, 10*(penetration-data.getSneak()));
 					publish = true;
 				}else {
 					thread.lowerVL(checkTag);
