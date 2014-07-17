@@ -39,18 +39,14 @@ public class SGCheckSpeed extends SGCheck {
 		if(SGPermissions.hasPermission(thread.getPlayer(), PermissionNodes.MOVEMENT_SPEED)) return;
 		boolean publish = false;
 		//TODO: Delta time set
-		
-		//TODO: Stricter web rules, enforce soulsand and ice
 		double multi = 1.0;
-		if(thread.isInWeb()) multi *= 0.25;
+		//TODO: Web check
 		
 		if(thread.isOnIce()) multi *= 1.325;
 		
 		//TODO: Potions
 		//FIXME: the current method is completely borked
 		//multi *= getSpeedAmplifier(thread.getPlayer());
-		
-		//TODO: You slow down while blocking
 		
 		double deltaVL = 0.0;
 		DataConfiguration data = SafeGuard2.getSafeGuard().getDataConfig();
