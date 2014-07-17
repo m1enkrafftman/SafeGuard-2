@@ -61,7 +61,9 @@ public final class SafeGuard2 extends JavaPlugin {
 		myOutputManager.log("Loading threads...");
 		myThreadMap.clear();
 		for(Player p : this.getServer().getOnlinePlayers()) {
-			myThreadMap.put(p, new PlayerThread(p));
+			PlayerThread toAdd = new PlayerThread(p);
+			toAdd.setName("SGThread-"+p.getName());
+			myThreadMap.put(p, toAdd);
 		}
 		myOutputManager.log("Starting threads...");
 		for(PlayerThread playerThread : myThreadMap.values()) {

@@ -121,6 +121,11 @@ public class SGBlockUtil {
 	public static boolean isFence(final Block block) {
 		return block.getType() == Material.NETHER_FENCE || block.getType() == Material.FENCE;
 	}
+	
+	/** Returns true if specified block is a web. */
+	public static boolean isWeb(final Block block) {
+		return ((block.getType() == Material.WEB) ? true : false);
+	}
 
 	/**
 	 * Checks to see if the specified item is a shovel.
@@ -266,6 +271,14 @@ public class SGBlockUtil {
 	/** Checks to see if the specified block is a lily. */
 	public static boolean isLily(final Block block){
 		return block.getType() == Material.WATER_LILY;
+	}
+	
+	/** Returns true if a player is in a web. **/
+	public static boolean isInWeb(final PlayerThread thread) {
+		Player sgPlayer = thread.getPlayer();
+		final Block feetBlock = sgPlayer.getWorld().getBlockAt(sgPlayer.getLocation());
+		final Block eyeBlock = sgPlayer.getWorld().getBlockAt(sgPlayer.getLocation().add(0, sgPlayer.getEyeHeight(), 0));
+		return isWeb(feetBlock) || isWeb(eyeBlock);
 	}
 
 	/** Returns whether a block is passable or not **/

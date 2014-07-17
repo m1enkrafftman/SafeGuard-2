@@ -13,6 +13,7 @@ public class SGCommandInfo extends SGCommand {
 	public SGCommandInfo() {
 		this.name = "info";
 		this.argumentCount = 1;
+		this.consoleExecute = true;
 		this.permission = PermissionNodes.INFO_ADMIN;
 		this.usage = new StringBuilder().append(ChatColor.GOLD).append("/safeguard info <player>").toString();
 		this.description = "Displays the current violations of a player.";
