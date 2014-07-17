@@ -10,10 +10,11 @@ import io.github.m1enkrafftman.SafeGuard2.utils.checks.movement.SGCheckSpeed;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
 public class PlayerThread extends Thread {
@@ -297,11 +298,25 @@ public class PlayerThread extends Thread {
 	 * @return
 	 */
 	public boolean isAboveStairs(){
-		final Function<Block, Boolean> func = (Block block) -> SGBlockUtil.isStair(block);
 		//Checks the various blockfaces and retrives the relative block to check.
 		final Block block = myPlayer.getLocation().getBlock();
 		final Block altBlock = myPlayer.getLocation().add(0, 0.5, 0).getBlock();
-		return isInMaterial(block, func) || isInMaterial(altBlock, func);
+		return (SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.EAST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.WEST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH_WEST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH_WEST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH_EAST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH_EAST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.EAST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.WEST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH_WEST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH_WEST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH_EAST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH_EAST)));
 	}
 
 	/** Returns the violation level of the player for the specified tag truncated to a max of two decimal places. */
@@ -318,25 +333,6 @@ public class PlayerThread extends Thread {
 	public void setNextExpectedY(double nextExpectedY) {
 		this.nextExpectedY = nextExpectedY;
 	}
-	
-	/** Returns true if any of the adjacent blocks matches a certain material. */
-	private boolean isInMaterial(Block block, Function<Block, Boolean> op)
-	{
-		for (Block adjacent : SGBlockUtil.getAdjacentBlocks(block)) {
-			if(op.apply(adjacent))
-				return true;
-		}
-		return false;
-	}
-	
-	/** Returns true if any of the adjacent blocks matches a certain material. */
-	private boolean isOnMaterial(Function<Block, Boolean> op)
-	{
-		final Block block = myPlayer.getLocation().getBlock();
-		final Block blockLower = myPlayer.getLocation().subtract(0, 0.1, 0).add(0.5, 0, 0).getBlock();
-		final Block blockLowest = myPlayer.getLocation().subtract(0, 0.2, 0).add(0.5, 0, 0).getBlock();
-		return isInMaterial(block, op) || isInMaterial(blockLower, op) || isInMaterial(blockLowest, op);
-	}
 
 	/**
 	 * Checks to see if the player is on a vine, or a ladder.
@@ -344,8 +340,9 @@ public class PlayerThread extends Thread {
 	 * @return boolean
 	 */
 	public boolean isClimbing() {
-		final Function<Block, Boolean> func = (Block block) -> SGBlockUtil.isClimbable(block);
-		return isInMaterial(myPlayer.getLocation().getBlock(), func);
+		//Checks the various blockfaces and retrives the relative block to check.
+		final Block block = myPlayer.getLocation().getBlock();
+		return (SGBlockUtil.isClimbable(block) || SGBlockUtil.isClimbable(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isClimbable(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isClimbable(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isClimbable(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isClimbable(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isClimbable(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isClimbable(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isClimbable(block.getRelative(BlockFace.NORTH_EAST)));
 	}
 
 
@@ -355,8 +352,15 @@ public class PlayerThread extends Thread {
 	 * @return boolean
 	 */
 	public boolean isOnLily() {
-		final Function<Block, Boolean> func = (Block block) -> SGBlockUtil.isLily(block);
-		return isOnMaterial(func);
+		//Checks the various blockfaces and retrives the relative block to check.
+		final Block block = myPlayer.getLocation().getBlock();
+		//Checks on jump
+		final Block blockLower = myPlayer.getLocation().subtract(0, 0.1, 0).add(0.5, 0, 0).getBlock();
+		final Block blockLowest = myPlayer.getLocation().subtract(0, 0.2, 0).add(0.5, 0, 0).getBlock();
+		//Returns if any
+		return (SGBlockUtil.isLily(block) || SGBlockUtil.isLily(blockLower) || SGBlockUtil.isLily(blockLowest) || SGBlockUtil.isLily(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isLily(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isLily(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isLily(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isLily(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isLily(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isLily(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isLily(block.getRelative(BlockFace.NORTH_EAST)))
+				|| SGBlockUtil.isLily(blockLower.getRelative(BlockFace.NORTH)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.EAST)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.WEST)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isLily(blockLower.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.NORTH_EAST))
+				|| SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.NORTH)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.EAST)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.WEST)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.NORTH_EAST));
 	}
 
 
@@ -366,8 +370,15 @@ public class PlayerThread extends Thread {
 	 * @return boolean
 	 */
 	public boolean isOnSnow() {
-		final Function<Block, Boolean> func = (Block block) -> SGBlockUtil.isSnow(block);
-		return isOnMaterial(func);
+		//Checks the various blockfaces and retrives the relative block to check.
+		final Block block = myPlayer.getLocation().getBlock();
+		//Checks on jump
+		final Block blockLower = myPlayer.getLocation().subtract(0, 0.1, 0).add(0.5, 0, 0).getBlock();
+		final Block blockLowest = myPlayer.getLocation().subtract(0, 0.2, 0).add(0.5, 0, 0).getBlock();
+		//Returns if any
+		return (SGBlockUtil.isSnow(block) || SGBlockUtil.isSnow(blockLower) || SGBlockUtil.isSnow(blockLowest) || SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH_EAST)))
+				|| SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.NORTH)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.EAST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.WEST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.NORTH_EAST))
+				|| SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.NORTH)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.EAST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.WEST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.NORTH_EAST));
 	}
 
 	/**
@@ -376,8 +387,15 @@ public class PlayerThread extends Thread {
 	 * @return boolean
 	 */
 	public boolean isOnIce() {
-		final Function<Block, Boolean> func = (Block block) -> SGBlockUtil.isIce(block);
-		return isOnMaterial(func);
+		//Checks the various blockfaces and retrives the relative block to check.
+		final Block block = myPlayer.getLocation().getBlock();
+		//Checks on jump
+		final Block blockLower = myPlayer.getLocation().subtract(0, 0.1, 0).add(0.5, 0, 0).getBlock();
+		final Block blockLowest = myPlayer.getLocation().subtract(0, 0.2, 0).add(0.5, 0, 0).getBlock();
+		//Returns if any
+		return (SGBlockUtil.isIce(block) || SGBlockUtil.isIce(blockLower) || SGBlockUtil.isIce(blockLowest) || SGBlockUtil.isIce(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.NORTH_EAST)))
+				|| SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH_EAST))
+				|| SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH_EAST));
 	}
 
 	public double getVL(SGCheckTag tag) {
