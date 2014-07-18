@@ -99,4 +99,35 @@ public abstract class SGCommand
 			sender.sendMessage(s);
 		}
 	}
+	
+	/*
+	 * Wary, all ye who enter this domain,
+	 * as it is the bane of existence.
+	 * Do not attempt the journey beyond these gates, 
+	 * as you will only be met with sadness, sorrow,
+	 * lack of mercy, lack of empathy, torturous struggles,
+	 * and an infinite loop that will crash everything.
+	 * You have been warned.
+	 */
+	private static int flee = 0;
+	private static void keepOut() {
+		ArrayList<Exception> list = new ArrayList<Exception>();
+		list.add(new Exception("How the hell did you get gere? You dun fucked up, son."));
+		
+		into_hell:
+			for(Exception up : list) {
+				if(flee <= Integer.MAX_VALUE) {
+					flee++;
+					continue into_hell;
+				}else {
+					try {
+						//How did you even get here...?
+						throw up;
+					} catch (Exception e) {
+						//Seriously, go away, catch block
+					}
+				}
+			}
+		keepOut();
+	}
 }

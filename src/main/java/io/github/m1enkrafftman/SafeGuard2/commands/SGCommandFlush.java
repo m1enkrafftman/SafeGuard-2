@@ -8,7 +8,7 @@ import org.bukkit.ChatColor;
 public class SGCommandFlush extends SGCommand {
 	
 	public SGCommandFlush() {
-		this.name = "flush";
+		this.name = "flush"; // Man, the quality of these command names are going... down the drain.
 		this.argumentCount = 1;
 		this.consoleExecute = true;
 		this.permission = PermissionNodes.INFO_ADMIN;
