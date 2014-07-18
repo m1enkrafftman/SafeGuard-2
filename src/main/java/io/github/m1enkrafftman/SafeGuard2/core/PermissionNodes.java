@@ -10,6 +10,7 @@ public class PermissionNodes {
 
 	public static final String BLOCK_FREQUENCY 			= "safeguard.block.frequency";
 	public static final String BLOCK_REACH				= "safeguard.block.reach";
+	public static final String BLOCK_DIRECTION 			= "safeguard.block.direction";
 	public static final String BLOCK_SPEED				= "safeguard.block.speed";
 
 	public static final String COMBAT_SPEED				= "safeguard.combat.speed";
