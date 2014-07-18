@@ -28,6 +28,8 @@ public final class SafeGuard2 extends JavaPlugin {
 	private DataConfiguration myDataConfig;
 	private DataGatherer myGatherer;
 	private FileManager myFileManager;
+	
+	public static boolean IS_TEST = false;
 		
 	@Override
 	public void onEnable() {

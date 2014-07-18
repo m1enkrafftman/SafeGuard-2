@@ -72,18 +72,33 @@ public class SGCheckSpeed extends SGCheck {
 				}
 			}
 			if(cooldown == true) publish = false;
-			
-			if(publish == true) {
-				if(inWeb) thread.addVL(checkTag, 10);
-				if(deltaVL > 1) {
-					this.publishCheck(checkTag, thread);
-					thread.resetMove();
+	
+		}else {
+			multi *= 1.3;
+			if(sgPlayer.isSprinting()) {
+				if(delta > data.getSprint()*multi) {
+					deltaVL = 10*(delta-(data.getSprint()*multi));
+					thread.addVL(checkTag, 10*(delta-data.getSprint()));
+					publish = true;
 				}
-
 			} else {
-				thread.lowerVL(checkTag);
-				thread.setSafeLocation(sgPlayer.getLocation());
+				if(delta > data.getWalk()*multi) {
+					deltaVL = 10*(delta-(data.getWalk()*multi));
+					thread.addVL(checkTag, 10*(delta-data.getWalk()));
+					publish = true;
+				}
 			}
+		}
+		if(publish == true) {
+			if(inWeb) thread.addVL(checkTag, 10);
+			if(deltaVL > 1) {
+				this.publishCheck(checkTag, thread);
+				thread.resetMove();
+			}
+
+		} else {
+			thread.lowerVL(checkTag);
+			thread.setSafeLocation(sgPlayer.getLocation());
 		}
 	}
 
