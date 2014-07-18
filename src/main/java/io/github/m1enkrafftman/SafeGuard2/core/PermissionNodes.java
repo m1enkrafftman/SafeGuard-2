@@ -17,7 +17,7 @@ public class PermissionNodes {
 	public static final String COMBAT_SELFHIT 			= "safeguard.combat.selfhit";
 
 	public static final String INFO_ALERTS				= "safeguard.info.alerts";
-	public static final String INFO_ADMIN				= "safegurd.info.admin";
-	public static final String INFO_DEFAULT				= "safegurd.info.default";
+	public static final String INFO_ADMIN				= "safeguard.info.admin";
+	public static final String INFO_DEFAULT				= "safeguard.info.default";
 	
 }
