@@ -23,6 +23,7 @@ public class SGCheck {
 	}
 	
 	public void check(float millisDif, SGCheckTag checkTag, PlayerThread thread){};
+	public void check(float millisDif, SGCheckTag checkTag, PlayerThread thread, boolean cooldown){};
 	public void check(SGCheckTag checkTag, Event event){};
 	
 	public void publishCheck(SGCheckTag tag, PlayerThread player) {
@@ -38,7 +39,7 @@ public class SGCheck {
 			if(send) {
 				sendChatMessage(p, output);
 			}
-			SafeGuard2.getSafeGuard().getOutput().log(output);
+			SafeGuard2.getSafeGuard().getOutput().log(ChatColor.stripColor(output));
 		}
 	}
 	

@@ -7,8 +7,8 @@ public class DataConfiguration {
 	private SafeGuard2 myPlugin;
 	
 	private double walkDistance = 0.82;
-	private double sprintDistance = 0.97;
-	private double sneakDistance = 0.38;
+	private double sprintDistance = 1.12;
+	private double sneakDistance = 0.45;
 	
 	public DataConfiguration(SafeGuard2 plugin) {
 		myPlugin = plugin;

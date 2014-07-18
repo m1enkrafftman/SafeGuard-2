@@ -23,11 +23,14 @@ public class PlayerThread extends Thread {
 	private boolean myRun;
 	private Location myLastLocation;
 	private Location myLastSafeLocation;
+	
 	private Timer myTimer;
+	private Timer myTeleportTimer;
 	
 	private Map<SGCheckTag, Double> myVlMap;
 	
 	private static final float CHECK_DELTA = 100F;
+	private static final float TP_COOLDOWN = 500F;
 	
 	private long lastOnIce = 0L;
 	
@@ -51,8 +54,9 @@ public class PlayerThread extends Thread {
 	private int finalHealth = 0;
 	
 	private int myFlightTicks;
-	private int myTeleportTicks;
 	private int myLiquidTicks;
+	
+	private boolean myCooldown;
 	
 	private SGCheckSpeed checkMovementSpeed;
 	private SGCheckFlight checkMovementFlight;
@@ -66,10 +70,11 @@ public class PlayerThread extends Thread {
 		myLastLocation = myPlayer.getLocation();
 		myLastSafeLocation = myPlayer.getLocation();
 		myTimer = new Timer();
+		myTeleportTimer = new Timer();
 		myVlMap = new HashMap<SGCheckTag, Double>();
 		myFlightTicks = 0;
-		myTeleportTicks = 0;
 		myLiquidTicks = 0;
+		myCooldown = false;
 		this.initChecks();
 		this.populateVlMap();
 	}
@@ -119,10 +124,12 @@ public class PlayerThread extends Thread {
 	@Override
 	public void run() {
 		while(myRun) {
-			if(myTeleportTicks <= 5) myTeleportTicks++;
 			float diffMillis = myTimer.diffMillis();
-			if(myTimer.canCheck(CHECK_DELTA) && myTeleportTicks >= 4)
+			boolean tpCooldown = myTeleportTimer.canCheckManual(TP_COOLDOWN);
+			myCooldown = tpCooldown ? true : false;
+			if(myTimer.canCheck(CHECK_DELTA) && tpCooldown) {
 				runChecks(diffMillis);
+			}
 		}
 	}
 	
@@ -133,7 +140,7 @@ public class PlayerThread extends Thread {
 	}
 	
 	private void runMovementChecks(float diffMillis) {
-		checkMovementSpeed.check(diffMillis, SGCheckTag.MOVEMENT_SPEED, this);
+		checkMovementSpeed.check(diffMillis, SGCheckTag.MOVEMENT_SPEED, this, myCooldown);
 		checkMovementFlight.check(diffMillis, SGCheckTag.MOVEMENT_FLIGHT, this);
 		checkMovementSneak.check(diffMillis, SGCheckTag.MOVEMENT_SNEAK, this);
 		checkWaterwalk.check(diffMillis, SGCheckTag.MOVEMENT_WATER, this);
@@ -149,7 +156,7 @@ public class PlayerThread extends Thread {
 	}
 	
 	public Location getLastLocation() {
-		return myLastLocation;
+		return (myTeleportTimer.canCheckManual(TP_COOLDOWN) ? myLastLocation : myPlayer.getLocation());
 	}
 	
 	public Player getPlayer() {
@@ -163,12 +170,11 @@ public class PlayerThread extends Thread {
 	}
 	
 	public void onTeleport() {
-		System.out.println("Teleported!");
-		myTeleportTicks = 0;
+		myTeleportTimer.updateLastTime();
 		myLastLocation = myPlayer.getLocation();
 		myLastSafeLocation = myPlayer.getLocation();
 	}
-	
+
 	/** Sets the initial health upon falling */
 	public void setFallInitialHealth(int health) {
 		this.initialHealth = health;

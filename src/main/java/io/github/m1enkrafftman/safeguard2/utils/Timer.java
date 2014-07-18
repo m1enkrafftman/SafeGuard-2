@@ -12,8 +12,16 @@ public class Timer {
 		return getCurrentTime() - myLastTime >= deltaMillis ? getReturn(true) : getReturn(false);
 	}
 	
+	public boolean canCheckManual(float deltaMillis) {
+		return getCurrentTime() - myLastTime >= deltaMillis ? true : false;
+	}
+	
 	public float diffMillis() {
 		return getCurrentTime() - myLastTime;
+	}
+	
+	public void updateLastTime() {
+		myLastTime = getCurrentTime();
 	}
 	
 	private boolean getReturn(boolean b) {

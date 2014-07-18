@@ -23,7 +23,7 @@ public class SGCheckSpeed extends SGCheck {
 	private static double biggestDelta = 0.0;
 	
 	@Override
-	public void check(float millisDiff, SGCheckTag checkTag, PlayerThread thread) {
+	public void check(float millisDiff, SGCheckTag checkTag, PlayerThread thread, boolean cooldown) {
 		double delta = MathHelper.getHorizontalDistance(thread.getPlayer().getLocation(), 
 				thread.getLastLocation());
 		Player sgPlayer = thread.getPlayer();
@@ -71,6 +71,8 @@ public class SGCheckSpeed extends SGCheck {
 					publish = true;
 				}
 			}
+			if(cooldown == true) publish = false;
+			
 			if(publish == true) {
 				if(inWeb) thread.addVL(checkTag, 10);
 				if(deltaVL > 1) {
