@@ -49,7 +49,6 @@ public class SGCheckSpeed extends SGCheck {
 		
 		if(inWeb) multi *= 0.12;
 		
-		//TODO: Potions
 		multi *= getSpeedAmplifier(thread.getPlayer());
 		
 		double deltaVL = 0.0;
