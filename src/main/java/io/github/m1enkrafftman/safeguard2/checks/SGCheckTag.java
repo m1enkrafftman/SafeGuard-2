@@ -1,0 +1,14 @@
+package io.github.m1enkrafftman.safeguard2.checks;
+
+public enum SGCheckTag {
+	
+	MOVEMENT_SPEED, MOVEMENT_SNEAK, MOVEMENT_FLIGHT, MOVEMENT_INVALID,
+	MOVEMENT_WATERSPEED,
+	
+	BLOCKBREAK_REACH,
+	
+	BLOCKPLACE_REACH,
+	
+	COMBAT_SELFHIT;
+
+}
