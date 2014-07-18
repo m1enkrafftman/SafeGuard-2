@@ -19,6 +19,24 @@ public class MathHelper {
 		return Math.sqrt(xSqr + zSqr);
 	}
 	
+	public static double getVerticalDistance(Location one, Location two) {
+		return Math.abs(one.getY() - two.getY());
+	}
+	
+	public static double clamp180(double theta) {
+		theta %= 360;
+        if (theta >= 180.0D) theta -= 360.0D;
+        if (theta < -180.0D) theta += 360.0D;
+        return theta;
+	}
+	
+	public static Vector subtractAngles(Vector one, Vector two) {
+		double x = clamp180(one.getX() - two.getX());
+		double y = clamp180(one.getY() - two.getY());
+		double z = clamp180(one.getZ() - two.getZ());
+		return new Vector(x, y, z);
+	}
+	
 	public static Vector getRotation(Location one, Location two) {
 		double dx = two.getX() - one.getX();
 		double dy = two.getY() - one.getY();
@@ -27,12 +45,5 @@ public class MathHelper {
 		float yaw = (float) (Math.atan2(dz, dx) * 180.0D / Math.PI) - 90.0F;
 		float pitch = (float) -(Math.atan2(dy, distanceXZ) * 180.0D / Math.PI);
         return new Vector(yaw, pitch, 0);
-	}
-	
-	public static double clamp180(double theta) {
-		theta %= 360;
-        if (theta >= 180.0D) theta -= 360.0D;
-        if (theta < -180.0D) theta += 360.0D;
-        return theta;
 	}
 }
