@@ -26,19 +26,19 @@ public class SGCheckInvalidMove extends SGCheck {
 		Location to = sgPlayer.getLocation();
 		//double delta = MathHelper.getHorizontalDistance(to, thread.getLastLocation());
 		
-		if(!SGBlockUtil.isPassable(thread, to.getBlockX(), to.getBlockY(), to.getBlockZ(), to.getBlock().getType())){
+		if(!SGBlockUtil.isPassable(thread, to.getBlockX(), to.getBlockY(), to.getBlockZ(), to.getBlock().getType())) {
 			if(!sgPlayer.getEyeLocation().getBlock().isEmpty() && !to.getBlock().isEmpty()) {
 				publish = true;
 				thread.addVL(checkTag, 10);
 			}
-		}else {
+		} else {
 			thread.lowerVL(checkTag);
 		}
 		
 		if(publish == true) {
 			this.publishCheck(checkTag, thread);
 			thread.resetMove();
-		}else {
+		} else {
 			thread.setSafeLocation(sgPlayer.getLocation());
 		}
 		

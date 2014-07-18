@@ -287,7 +287,7 @@ public class SGBlockUtil {
 		final int by = Location.locToBlock(y);
 		final int bz = Location.locToBlock(z);
 		final Block craftBlock = player.getPlayer().getWorld().getBlockAt((int)x, (int)y, (int)z);
-		if(craftBlock == null)return true;
+		if(craftBlock == null) return true;
 		final double fx = x - bx;
 		final double fy = y - by;
 		final double fz = z - bz;
@@ -304,13 +304,13 @@ public class SGBlockUtil {
 			else if (id == Material.FENCE || id == Material.NETHER_FENCE)if (Math.abs(0.2 - fx) > 0.02 && Math.abs(0.2 - fz) > 0.02) return true;
 			else if (id == Material.FENCE_GATE) return true;
 			else if (id == Material.CAKE_BLOCK && fy >= 0.4375) return true; 
-			else if (id == Material.CAULDRON){if (Math.abs(0.5 - fx) < 0.1 && Math.abs(0.5 - fz) < 0.1 && fy > 0.1) return true;}
-			else if (id == Material.WATER)return true;
-			else if (id == Material.LADDER)return true;
-			else if (id == Material.VINE)return true;
-			else if (id == Material.WATER_LILY)return true;
-			else if (id == Material.SNOW)return true;
-			else if (id == Material.AIR)return true;
+			else if (id == Material.CAULDRON) { if (Math.abs(0.5 - fx) < 0.1 && Math.abs(0.5 - fz) < 0.1 && fy > 0.1) return true; }
+			else if (id == Material.WATER) return true;
+			else if (id == Material.LADDER) return true;
+			else if (id == Material.VINE) return true;
+			else if (id == Material.WATER_LILY) return true;
+			else if (id == Material.SNOW) return true;
+			else if (id == Material.AIR) return true;
 			else if (id == Material.CACTUS && fy >= 0.9375) return true;
 			return false;
 		}
