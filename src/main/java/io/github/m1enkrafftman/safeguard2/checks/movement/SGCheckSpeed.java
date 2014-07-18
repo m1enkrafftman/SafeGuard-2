@@ -74,7 +74,6 @@ public class SGCheckSpeed extends SGCheck {
 			if(cooldown == true) publish = false;
 	
 		}else {
-			multi *= 1.3;
 			if(sgPlayer.isSprinting()) {
 				if(delta > data.getSprint()*multi) {
 					deltaVL = 10*(delta-(data.getSprint()*multi));
@@ -88,7 +87,9 @@ public class SGCheckSpeed extends SGCheck {
 					publish = true;
 				}
 			}
+			if(cooldown == true) publish = false;
 		}
+		
 		if(publish == true) {
 			if(inWeb) thread.addVL(checkTag, 10);
 			if(deltaVL > 1) {
