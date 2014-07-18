@@ -246,13 +246,13 @@ public class PlayerThread extends Thread {
 
 	/** Gets the location fell from */
 	public Location getFellFrom() {
-		if(fellFrom == null)return getPlayer().getLocation();
+		if(fellFrom == null) return getPlayer().getLocation();
 		return (this.fellFrom);
 	}
 
 	/** Gets the location the player fell from */
 	public Location getFellTo() {
-		if(fellTo == null)return getPlayer().getLocation();
+		if(fellTo == null) return getPlayer().getLocation();
 		return (this.fellTo);
 	}
 
@@ -318,7 +318,7 @@ public class PlayerThread extends Thread {
 	 * @param block
 	 * @return
 	 */
-	public boolean isAboveStairs(){
+	public boolean isAboveStairs() {
 		//Checks the various blockfaces and retrives the relative block to check.
 		final Block block = myPlayer.getLocation().getBlock();
 		final Block altBlock = myPlayer.getLocation().add(0, 0.5, 0).getBlock();
