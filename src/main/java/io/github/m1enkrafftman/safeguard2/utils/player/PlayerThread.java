@@ -25,8 +25,6 @@ public class PlayerThread extends Thread {
 	private Location myLastSafeLocation;
 	private Timer myTimer;
 	
-	private int myTeleportTicks;
-	
 	private Map<SGCheckTag, Double> myVlMap;
 	
 	private static final float CHECK_DELTA = 100F;
@@ -53,6 +51,8 @@ public class PlayerThread extends Thread {
 	private int finalHealth = 0;
 	
 	private int myFlightTicks;
+	private int myTeleportTicks;
+	private int myLiquidTicks;
 	
 	private SGCheckSpeed checkMovementSpeed;
 	private SGCheckFlight checkMovementFlight;
@@ -61,7 +61,6 @@ public class PlayerThread extends Thread {
 	private SGCheckWaterwalk checkWaterwalk;
 	
 	public PlayerThread(Player player) {
-		myTeleportTicks = 0;
 		myPlayer = player;
 		myRun = true;
 		myLastLocation = myPlayer.getLocation();
@@ -69,6 +68,8 @@ public class PlayerThread extends Thread {
 		myTimer = new Timer();
 		myVlMap = new HashMap<SGCheckTag, Double>();
 		myFlightTicks = 0;
+		myTeleportTicks = 0;
+		myLiquidTicks = 0;
 		this.initChecks();
 		this.populateVlMap();
 	}
@@ -99,6 +100,18 @@ public class PlayerThread extends Thread {
 		return this.myFlightTicks;
 	}
 	
+	public void addLiquidTick() {
+		this.myLiquidTicks++;
+	}
+	
+	public void resetLiquidTicks() {
+		this.myLiquidTicks = 0;
+	}
+	
+	public int getLiquidTicks() {
+		return this.myLiquidTicks;
+	}
+	
 	public void shutoff() {
 		myRun = false;
 	}
@@ -106,9 +119,9 @@ public class PlayerThread extends Thread {
 	@Override
 	public void run() {
 		while(myRun) {
-			if(myTeleportTicks < 3) myTeleportTicks++;
+			if(myTeleportTicks <= 5) myTeleportTicks++;
 			float diffMillis = myTimer.diffMillis();
-			if(myTimer.canCheck(CHECK_DELTA))
+			if(myTimer.canCheck(CHECK_DELTA) && myTeleportTicks >= 4)
 				runChecks(diffMillis);
 		}
 	}
@@ -120,13 +133,11 @@ public class PlayerThread extends Thread {
 	}
 	
 	private void runMovementChecks(float diffMillis) {
-		if(myTeleportTicks > 2) {
-			checkMovementSpeed.check(diffMillis, SGCheckTag.MOVEMENT_SPEED, this);
-			checkMovementFlight.check(diffMillis, SGCheckTag.MOVEMENT_FLIGHT, this);
-			checkMovementSneak.check(diffMillis, SGCheckTag.MOVEMENT_SNEAK, this);
-			checkWaterwalk.check(diffMillis, SGCheckTag.MOVEMENT_WATERSPEED, this);
-			//checkMovementInvalid.check(diffMillis, SGCheckTag.MOVEMENT_INVALID, this);
-		}
+		checkMovementSpeed.check(diffMillis, SGCheckTag.MOVEMENT_SPEED, this);
+		checkMovementFlight.check(diffMillis, SGCheckTag.MOVEMENT_FLIGHT, this);
+		checkMovementSneak.check(diffMillis, SGCheckTag.MOVEMENT_SNEAK, this);
+		checkWaterwalk.check(diffMillis, SGCheckTag.MOVEMENT_WATER, this);
+		//checkMovementInvalid.check(diffMillis, SGCheckTag.MOVEMENT_INVALID, this);
 	}
 	
 	public void addVL(SGCheckTag tag, double delta) {
@@ -152,6 +163,7 @@ public class PlayerThread extends Thread {
 	}
 	
 	public void onTeleport() {
+		System.out.println("Teleported!");
 		myTeleportTicks = 0;
 		myLastLocation = myPlayer.getLocation();
 		myLastSafeLocation = myPlayer.getLocation();

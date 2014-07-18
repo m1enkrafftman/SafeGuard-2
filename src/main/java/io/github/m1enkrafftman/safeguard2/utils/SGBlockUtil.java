@@ -280,6 +280,17 @@ public class SGBlockUtil {
 		final Block eyeBlock = sgPlayer.getWorld().getBlockAt(sgPlayer.getLocation().add(0, sgPlayer.getEyeHeight(), 0));
 		return isWeb(feetBlock) || isWeb(eyeBlock);
 	}
+	
+	public static boolean isInLiquid(final PlayerThread thread) {
+		Player sgPlayer = thread.getPlayer();
+		Location sgLoc = sgPlayer.getLocation();
+		Location under = sgLoc.add(0, -0.1, 0);
+		Location eye = sgLoc.add(0, sgPlayer.getEyeHeight(), 0);
+		final Block underBlock = sgPlayer.getWorld().getBlockAt(under);
+		final Block feetBlock = sgPlayer.getWorld().getBlockAt(sgLoc);
+		final Block eyeBlock = sgPlayer.getWorld().getBlockAt(eye);
+		return (underBlock.isLiquid() || feetBlock.isLiquid() || eyeBlock.isLiquid());
+	}
 
 	/** Returns whether a block is passable or not **/
 	public static boolean isPassable(final PlayerThread player, final double x, final double y, final double z, final int id) {

@@ -5,7 +5,7 @@ public class PermissionNodes {
 	public static final String MOVEMENT_FLIGHT			= "safeguard.movement.flight";
 	public static final String MOVEMENT_SPEED			= "safeguard.movement.speed";
 	public static final String MOVEMENT_INVALID			= "safeguard.movement.invalid";
-	public static final String MOVEMENT_MOREPACKETS		= "safeguard.movement.morepackets";
+	public static final String MOVEMENT_WATER			= "safeguard.movement.water";
 	public static final String MOVEMENT_FALL			= "safeguard.movement.fall";
 
 	public static final String BLOCK_FREQUENCY 			= "safeguard.block.frequency";
