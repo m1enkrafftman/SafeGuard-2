@@ -4,6 +4,7 @@ import io.github.m1enkrafftman.SafeGuard2.commands.SGCommandManager;
 import io.github.m1enkrafftman.SafeGuard2.events.PlayerConnection;
 import io.github.m1enkrafftman.SafeGuard2.events.PlayerDamage;
 import io.github.m1enkrafftman.SafeGuard2.events.PlayerTeleport;
+import io.github.m1enkrafftman.SafeGuard2.events.blocks.PlayerBlockBreak;
 import io.github.m1enkrafftman.SafeGuard2.heuristics.DataConfiguration;
 import io.github.m1enkrafftman.SafeGuard2.heuristics.DataGatherer;
 import io.github.m1enkrafftman.SafeGuard2.utils.FileManager;
@@ -55,6 +56,7 @@ public final class SafeGuard2 extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new PlayerConnection(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerTeleport(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerDamage(), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerBlockBreak(), this);
 	}
 	
 	private void handleThreadLoading() {
