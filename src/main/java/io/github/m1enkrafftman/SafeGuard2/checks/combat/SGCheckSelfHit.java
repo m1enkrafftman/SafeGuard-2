@@ -1,10 +1,10 @@
-package io.github.m1enkrafftman.SafeGuard2.utils.checks.combat;
+package io.github.m1enkrafftman.SafeGuard2.checks.combat;
 
 import io.github.m1enkrafftman.SafeGuard2.SafeGuard2;
+import io.github.m1enkrafftman.SafeGuard2.checks.SGCheck;
+import io.github.m1enkrafftman.SafeGuard2.checks.SGCheckTag;
 import io.github.m1enkrafftman.SafeGuard2.core.PermissionNodes;
 import io.github.m1enkrafftman.SafeGuard2.core.SGPermissions;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheck;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheckTag;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;

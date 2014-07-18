@@ -1,4 +1,4 @@
-package io.github.m1enkrafftman.SafeGuard2.utils.checks;
+package io.github.m1enkrafftman.SafeGuard2.checks;
 
 public enum SGCheckTag {
 	

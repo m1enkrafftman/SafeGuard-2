@@ -1,8 +1,8 @@
 package io.github.m1enkrafftman.SafeGuard2.commands;
 
 import io.github.m1enkrafftman.SafeGuard2.SafeGuard2;
+import io.github.m1enkrafftman.SafeGuard2.checks.SGCheckTag;
 import io.github.m1enkrafftman.SafeGuard2.core.PermissionNodes;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheckTag;
 import io.github.m1enkrafftman.SafeGuard2.utils.player.PlayerThread;
 
 import org.bukkit.ChatColor;

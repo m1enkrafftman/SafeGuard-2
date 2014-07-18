@@ -1,11 +1,11 @@
-package io.github.m1enkrafftman.SafeGuard2.utils.checks.movement;
+package io.github.m1enkrafftman.SafeGuard2.checks.movement;
 
+import io.github.m1enkrafftman.SafeGuard2.checks.SGCheck;
+import io.github.m1enkrafftman.SafeGuard2.checks.SGCheckTag;
 import io.github.m1enkrafftman.SafeGuard2.core.PermissionNodes;
 import io.github.m1enkrafftman.SafeGuard2.core.SGPermissions;
 import io.github.m1enkrafftman.SafeGuard2.utils.MathHelper;
 import io.github.m1enkrafftman.SafeGuard2.utils.SGBlockUtil;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheck;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheckTag;
 import io.github.m1enkrafftman.SafeGuard2.utils.player.PlayerThread;
 
 import org.bukkit.Location;

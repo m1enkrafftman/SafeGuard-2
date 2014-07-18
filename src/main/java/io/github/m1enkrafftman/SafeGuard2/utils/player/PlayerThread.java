@@ -1,12 +1,12 @@
 package io.github.m1enkrafftman.SafeGuard2.utils.player;
 
+import io.github.m1enkrafftman.SafeGuard2.checks.SGCheckTag;
+import io.github.m1enkrafftman.SafeGuard2.checks.movement.SGCheckFlight;
+import io.github.m1enkrafftman.SafeGuard2.checks.movement.SGCheckInvalidMove;
+import io.github.m1enkrafftman.SafeGuard2.checks.movement.SGCheckSneak;
+import io.github.m1enkrafftman.SafeGuard2.checks.movement.SGCheckSpeed;
 import io.github.m1enkrafftman.SafeGuard2.utils.SGBlockUtil;
 import io.github.m1enkrafftman.SafeGuard2.utils.Timer;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheckTag;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.movement.SGCheckFlight;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.movement.SGCheckInvalidMove;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.movement.SGCheckSneak;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.movement.SGCheckSpeed;
 
 import java.util.HashMap;
 import java.util.Map;

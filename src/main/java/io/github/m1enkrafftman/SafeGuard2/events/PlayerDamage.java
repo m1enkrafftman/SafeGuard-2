@@ -1,8 +1,8 @@
 package io.github.m1enkrafftman.SafeGuard2.events;
 
 import io.github.m1enkrafftman.SafeGuard2.SafeGuard2;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheckTag;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.combat.SGCheckSelfHit;
+import io.github.m1enkrafftman.SafeGuard2.checks.SGCheckTag;
+import io.github.m1enkrafftman.SafeGuard2.checks.combat.SGCheckSelfHit;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,7 +1,7 @@
 package io.github.m1enkrafftman.SafeGuard2.events.blocks;
 
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.SGCheckTag;
-import io.github.m1enkrafftman.SafeGuard2.utils.checks.blockbreak.SGCheckBreakReach;
+import io.github.m1enkrafftman.SafeGuard2.checks.SGCheckTag;
+import io.github.m1enkrafftman.SafeGuard2.checks.blockbreak.SGCheckBreakReach;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
