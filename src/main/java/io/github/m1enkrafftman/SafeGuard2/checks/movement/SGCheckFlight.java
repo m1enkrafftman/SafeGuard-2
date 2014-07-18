@@ -11,7 +11,7 @@ public class SGCheckFlight extends SGCheck {
 	private double myLastYMove = 0.0;
 	
 	//Magic, do not touch
-	public static double FLIGHT_TICK_LIMIT = 4;
+	public static double FLIGHT_TICK_LIMIT = 5;
 	
 	@Override
 	public void check(float millisDif, SGCheckTag tag, PlayerThread thread) {
@@ -27,22 +27,19 @@ public class SGCheckFlight extends SGCheck {
 		double verticalMoveDelta = SGMovementUtil.getDistanceVertical(thread.getLastLocation(), thread.getPlayer().getLocation());
 		
 		if(!onGround(thread.getPlayer()) && this.myLastYMove >= 0.0) {
-			if(SGMovementUtil.getFalling(thread.getPlayer())) {
-				thread.lowerVL(tag);
-				//TODO: glide check;
-				return;
-			}else {
-				thread.addFlightTick();
-				if(thread.getFlightTicks() > FLIGHT_TICK_LIMIT) {
-					thread.addVL(tag, verticalMoveDelta * 10);
-					publish = true;
-					//thread.resetMove();
-				}
+			thread.addFlightTick();
+			if(thread.getFlightTicks() > FLIGHT_TICK_LIMIT) {
+				thread.addVL(tag, (verticalMoveDelta * 10) + 5);
+				publish = true;
 			}
 		}else {
 			thread.resetFlightTicks();
-			//thread.setSafeLocation(thread.getPlayer().getLocation());
 			thread.lowerVL(tag);
+		}
+		if(SGMovementUtil.getFalling(thread.getPlayer()) && !onGround(thread.getPlayer())) {
+			thread.lowerVL(tag);
+			//TODO: glide check;
+			return;
 		}
 		
 		this.myLastYMove = verticalMoveDelta;

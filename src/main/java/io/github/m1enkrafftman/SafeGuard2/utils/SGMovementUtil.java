@@ -46,8 +46,7 @@ public class SGMovementUtil {
 	}
 	
 	public static boolean getFalling(Player sgPlayer) {
-		return ((sgPlayer.getLocation().getY() - SafeGuard2.getSafeGuard()
-				.getPlayerMap().get(sgPlayer).getLastLocation().getY()) < 0 ? true : false);
+		return getFalling(sgPlayer.getLocation(), SafeGuard2.getSafeGuard().getPlayerMap().get(sgPlayer).getLastLocation());
 	}
 
 	/** Returns TRUE if Location difference is negative. */
