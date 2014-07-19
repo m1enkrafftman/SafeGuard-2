@@ -49,18 +49,22 @@ public class SGCheckSpeed extends SGCheck {
 		if(delta > biggestDelta) {
 			biggestDelta = delta;
 		}
-		if(sgPlayer.isSprinting()) {
-			if(delta > data.getSprint()*multi) {
-				deltaVL = 10*(delta-(data.getSprint()*multi));
-				thread.addVL(checkTag, 10*(delta-data.getSprint()));
-				publish = true;
+		if(!isCreative(sgPlayer)) {
+			if(sgPlayer.isSprinting()) {
+				if(delta > data.getSprint()*multi) {
+					deltaVL = 10*(delta-(data.getSprint()*multi));
+					thread.addVL(checkTag, 10*(delta-data.getSprint()));
+					publish = true;
+				}
+			} else {
+				if(delta > data.getWalk()*multi) {
+					deltaVL = 10*(delta-(data.getWalk()*multi));
+					thread.addVL(checkTag, 10*(delta-data.getWalk()));
+					publish = true;
+				}
 			}
-		} else {
-			if(delta > data.getWalk()*multi) {
-				deltaVL = 10*(delta-(data.getWalk()*multi));
-				thread.addVL(checkTag, 10*(delta-data.getWalk()));
-				publish = true;
-			}
+		}else {
+			//TODO: Creative check
 		}
 		
 		if(cooldown == true) publish = false;

@@ -8,6 +8,7 @@ import io.github.m1enkrafftman.safeguard2.utils.player.PlayerThread;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -106,7 +107,9 @@ public class SGCheck {
 
 	/** Returns whether the player is in liquid. */
 	public static boolean inLiquid(Player sgPlayer) {
-		return (sgPlayer.getEyeLocation().subtract(0,1.85,0).getBlock().isLiquid() ? true : false);
+		final Location footLoc = sgPlayer.getEyeLocation().subtract(0, 1.5, 0);
+		final Location underLoc = sgPlayer.getEyeLocation().subtract(0, 1.9, 0);
+		return (footLoc.getBlock().isLiquid() || underLoc.getBlock().isLiquid());
 	}
 
 	/** Returns whether the player is on the ground. */
@@ -213,6 +216,7 @@ public class SGCheck {
 		if(inWeb) multi *= 0.12;
 		if(!onGround(thread.getPlayer())) multi *= 1.5; 
 		multi *= getSpeedAmplifier(thread.getPlayer());
+		if(thread.getPlayer().isBlocking()) multi *= 0.5;
 		return multi;
 	}
 

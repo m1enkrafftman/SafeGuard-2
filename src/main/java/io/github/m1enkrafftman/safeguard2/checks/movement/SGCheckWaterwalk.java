@@ -14,7 +14,7 @@ public class SGCheckWaterwalk extends SGCheck {
 	
 	private static final int IN_LIQUID_BUFFER = 7;
 	
-	private static final double LEGAL_DELTA = 0.285;
+	private static final double LEGAL_DELTA = 0.275;
 	private static final double LEGAL_DELTA_VERTICAL = 0.3;
 	
 	@Override
