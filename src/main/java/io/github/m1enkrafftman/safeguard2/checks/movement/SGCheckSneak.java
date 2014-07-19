@@ -16,33 +16,36 @@ public class SGCheckSneak extends SGCheck {
 	private boolean lastTickSneaking = false;
 	
 	@Override
-	public void check(float millisDiff, SGCheckTag checkTag, PlayerThread thread) {
+	public void check(float millisDiff, SGCheckTag checkTag, PlayerThread thread, boolean cooldown) {
 		if(SGPermissions.hasPermission(thread.getPlayer(), PermissionNodes.MOVEMENT_SPEED)) return;
+		if(thread.getPlayer().isInsideVehicle()) return;
 		double penetration; //Ouch
 		penetration = MathHelper.getHorizontalDistance(thread.getPlayer().getLocation(), 
 				thread.getLastLocation());
 		boolean publish = false;
 		DataConfiguration data = SafeGuard2.getSafeGuard().getDataConfig();
 		Player sgPlayer = thread.getPlayer();
-		if(onGround(sgPlayer)) 
-		{
-			if(sgPlayer.isSneaking()) {
-				lastTickSneaking = true;
-				if(penetration > data.getSneak() && lastTickSneaking) {
-					thread.addVL(checkTag, 10*(penetration-data.getSneak()));
-					publish = true;
-				}else {
-					thread.lowerVL(checkTag);
-				}
-			}
-				
-			if(publish == true) {
-				this.publishCheck(checkTag, thread);
-				thread.resetMove();
+		double multi = getSpeedMultiplier(thread);
+		if(sgPlayer.isSneaking()) {
+			if(penetration > data.getSneak()*multi && lastTickSneaking) {
+				thread.addVL(checkTag, (10*(penetration-data.getSneak())) + 5);
+				publish = true;
 			}else {
-				thread.setSafeLocation(sgPlayer.getLocation());
+				thread.lowerVL(checkTag);
 			}
+			this.lastTickSneaking = true;
+		}else {
+			this.lastTickSneaking = false;
 		}
+
+		if(cooldown == true) publish = false;
+		if(publish == true) {
+			this.publishCheck(checkTag, thread);
+			thread.resetMove();
+		}else {
+			thread.setSafeLocation(sgPlayer.getLocation());
+		}
+
 	}
 
 }

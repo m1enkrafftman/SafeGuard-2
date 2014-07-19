@@ -204,5 +204,16 @@ public class SGCheck {
 				|| SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH_EAST))
 				|| SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH_EAST));
 	}
+	
+	/** Returns the overall speed multipler */
+	public static double getSpeedMultiplier(PlayerThread thread) {
+		double multi = 1.0;
+		if(thread.isOnIce()) multi *= 1.4;
+		boolean inWeb = SGBlockUtil.isInWeb(thread); 
+		if(inWeb) multi *= 0.12;
+		if(!onGround(thread.getPlayer())) multi *= 1.5; 
+		multi *= getSpeedAmplifier(thread.getPlayer());
+		return multi;
+	}
 
 }

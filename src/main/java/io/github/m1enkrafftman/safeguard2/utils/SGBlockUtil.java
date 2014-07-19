@@ -260,7 +260,7 @@ public class SGBlockUtil {
 
 	/** Returns true if the block is a ladder **/
 	public static boolean isLadder(Block block) {
-		return block.getType() == Material.LADDER;
+		return isClimbable(block);
 	}
 
 	/** Checks to see if the specified block is a vine. */

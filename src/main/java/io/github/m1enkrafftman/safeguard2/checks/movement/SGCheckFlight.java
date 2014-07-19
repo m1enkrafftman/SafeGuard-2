@@ -10,8 +10,7 @@ public class SGCheckFlight extends SGCheck {
 	
 	private double myLastYMove = 0.0;
 	
-	//Magic, do not touch
-	public static double FLIGHT_TICK_LIMIT = 5;
+	public static double FLIGHT_TICK_LIMIT = 6;
 	
 	@Override
 	public void check(float millisDif, SGCheckTag tag, PlayerThread thread) {
@@ -19,7 +18,7 @@ public class SGCheckFlight extends SGCheck {
 		if(SGMovementUtil.isAboveStairs(thread.getPlayer()) || SGCheck.inLiquid(thread.getPlayer())
 				|| SGCheck.isOnFence(thread.getPlayer()) || SGCheck.isOnLadder(thread.getPlayer()) 
 				|| SGCheck.isOnSnow(thread.getPlayer())) return;
-		
+		if(thread.getPlayer().isInsideVehicle()) return;
 		if(isCreative(thread.getPlayer()) && isCreativeFlight(thread.getPlayer())) return;
 		
 		if(thread.getPlayer().hasPermission(PermissionNodes.MOVEMENT_FLIGHT) || thread.getPlayer().isOp()) return;

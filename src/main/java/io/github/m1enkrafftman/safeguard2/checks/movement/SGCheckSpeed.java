@@ -26,6 +26,7 @@ public class SGCheckSpeed extends SGCheck {
 	public void check(float millisDiff, SGCheckTag checkTag, PlayerThread thread, boolean cooldown) {
 		double delta = MathHelper.getHorizontalDistance(thread.getPlayer().getLocation(), 
 				thread.getLastLocation());
+		if(thread.getPlayer().isInsideVehicle()) return;
 		Player sgPlayer = thread.getPlayer();
 		if(onGround(sgPlayer)) 
 		{
@@ -41,52 +42,27 @@ public class SGCheckSpeed extends SGCheck {
 		if(SGPermissions.hasPermission(thread.getPlayer(), PermissionNodes.MOVEMENT_SPEED)) return;
 		DataConfiguration data = SafeGuard2.getSafeGuard().getDataConfig();
 		boolean publish = false;
-		double multi = 1.0;
-		
-		if(thread.isOnIce()) multi *= 1.4;
-		
+		double multi = getSpeedMultiplier(thread);
 		boolean inWeb = SGBlockUtil.isInWeb(thread); 
-		
-		if(inWeb) multi *= 0.12;
-		
-		multi *= getSpeedAmplifier(thread.getPlayer());
-		
 		double deltaVL = 0.0;
-		if(onGround(sgPlayer)) 
-		{
-			if(delta > biggestDelta) {
-				biggestDelta = delta;
-			}
-			if(sgPlayer.isSprinting()) {
-				if(delta > data.getSprint()*multi) {
-					deltaVL = 10*(delta-(data.getSprint()*multi));
-					thread.addVL(checkTag, 10*(delta-data.getSprint()));
-					publish = true;
-				}
-			} else {
-				if(delta > data.getWalk()*multi) {
-					deltaVL = 10*(delta-(data.getWalk()*multi));
-					thread.addVL(checkTag, 10*(delta-data.getWalk()));
-					publish = true;
-				}
-			}
-		}else {
-			multi *= 1.2;
-			if(sgPlayer.isSprinting()) {
-				if(delta > data.getSprint()*multi) {
-					deltaVL = 10*(delta-(data.getSprint()*multi));
-					thread.addVL(checkTag, 10*(delta-data.getSprint()));
-					publish = true;
-				}
-			} else {
-				if(delta > data.getWalk()*multi) {
-					deltaVL = 10*(delta-(data.getWalk()*multi));
-					thread.addVL(checkTag, 10*(delta-data.getWalk()));
-					publish = true;
-				}
-			}
-			if(cooldown == true) publish = false;
+
+		if(delta > biggestDelta) {
+			biggestDelta = delta;
 		}
+		if(sgPlayer.isSprinting()) {
+			if(delta > data.getSprint()*multi) {
+				deltaVL = 10*(delta-(data.getSprint()*multi));
+				thread.addVL(checkTag, 10*(delta-data.getSprint()));
+				publish = true;
+			}
+		} else {
+			if(delta > data.getWalk()*multi) {
+				deltaVL = 10*(delta-(data.getWalk()*multi));
+				thread.addVL(checkTag, 10*(delta-data.getWalk()));
+				publish = true;
+			}
+		}
+		
 		if(cooldown == true) publish = false;
 		if(publish == true) {
 			if(inWeb) thread.addVL(checkTag, 10);

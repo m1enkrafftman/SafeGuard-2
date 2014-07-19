@@ -56,6 +56,7 @@ public class PlayerThread extends Thread {
 	
 	private int myFlightTicks;
 	private int myLiquidTicks;
+	private int myLadderTicks;
 	
 	private boolean myCooldown;
 	
@@ -76,6 +77,7 @@ public class PlayerThread extends Thread {
 		myVlMap = new HashMap<SGCheckTag, Double>();
 		myFlightTicks = 0;
 		myLiquidTicks = 0;
+		myLadderTicks = 0;
 		myCooldown = false;
 		this.initChecks();
 		this.populateVlMap();
@@ -120,6 +122,18 @@ public class PlayerThread extends Thread {
 		return this.myLiquidTicks;
 	}
 	
+	public void addLadderTick() {
+		this.myLadderTicks++;
+	}
+	
+	public void resetLadderTicks() {
+		this.myLadderTicks = 0;
+	}
+	
+	public int getLadderTicks() {
+		return this.myLadderTicks;
+	}
+	
 	public void shutoff() {
 		myRun = false;
 	}
@@ -145,10 +159,10 @@ public class PlayerThread extends Thread {
 	private void runMovementChecks(float diffMillis) {
 		checkMovementSpeed.check(diffMillis, SGCheckTag.MOVEMENT_SPEED, this, myCooldown);
 		checkMovementFlight.check(diffMillis, SGCheckTag.MOVEMENT_FLIGHT, this);
-		checkMovementSneak.check(diffMillis, SGCheckTag.MOVEMENT_SNEAK, this);
+		checkMovementSneak.check(diffMillis, SGCheckTag.MOVEMENT_SNEAK, this, myCooldown);
 		checkWaterwalk.check(diffMillis, SGCheckTag.MOVEMENT_WATER, this);
 		checkMovementVertical.check(diffMillis, SGCheckTag.MOVEMENT_VERTICAL, this);
-		//checkMovementInvalid.check(diffMillis, SGCheckTag.MOVEMENT_INVALID, this);
+		checkMovementInvalid.check(diffMillis, SGCheckTag.MOVEMENT_INVALID, this);
 	}
 	
 	public void addVL(SGCheckTag tag, double delta) {
