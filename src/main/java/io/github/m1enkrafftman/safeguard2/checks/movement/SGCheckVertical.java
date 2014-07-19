@@ -21,7 +21,7 @@ public class SGCheckVertical extends SGCheck {
 		
 		if(thread.getPlayer().hasPermission(PermissionNodes.MOVEMENT_VERTICAL)) return;
 		Player sgPlayer = thread.getPlayer();
-		double verticalMoveDelta = SGMovementUtil.getDistanceY(thread.getLastLocation(), thread.getPlayer().getLocation(), false);
+		double verticalMoveDelta = SGMovementUtil.getDistanceY(thread.getPlayer().getLocation(), thread.getLastLocation(), false);
 		
 		if(isOnLadder(sgPlayer)) {
 			
