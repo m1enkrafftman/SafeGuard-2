@@ -6,6 +6,7 @@ public class PermissionNodes {
 	public static final String MOVEMENT_SPEED			= "safeguard.movement.speed";
 	public static final String MOVEMENT_INVALID			= "safeguard.movement.invalid";
 	public static final String MOVEMENT_WATER			= "safeguard.movement.water";
+	public static final String MOVEMENT_VERTICAL		= "safeguard.movement.vertical";
 	public static final String MOVEMENT_FALL			= "safeguard.movement.fall";
 
 	public static final String BLOCK_FREQUENCY 			= "safeguard.block.frequency";

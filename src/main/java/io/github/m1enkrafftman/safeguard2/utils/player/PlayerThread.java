@@ -5,6 +5,7 @@ import io.github.m1enkrafftman.safeguard2.checks.movement.SGCheckFlight;
 import io.github.m1enkrafftman.safeguard2.checks.movement.SGCheckInvalidMove;
 import io.github.m1enkrafftman.safeguard2.checks.movement.SGCheckSneak;
 import io.github.m1enkrafftman.safeguard2.checks.movement.SGCheckSpeed;
+import io.github.m1enkrafftman.safeguard2.checks.movement.SGCheckVertical;
 import io.github.m1enkrafftman.safeguard2.checks.movement.SGCheckWaterwalk;
 import io.github.m1enkrafftman.safeguard2.utils.SGBlockUtil;
 import io.github.m1enkrafftman.safeguard2.utils.Timer;
@@ -63,6 +64,7 @@ public class PlayerThread extends Thread {
 	private SGCheckSneak checkMovementSneak;
 	private SGCheckInvalidMove checkMovementInvalid;
 	private SGCheckWaterwalk checkWaterwalk;
+	private SGCheckVertical checkMovementVertical;
 	
 	public PlayerThread(Player player) {
 		myPlayer = player;
@@ -85,6 +87,7 @@ public class PlayerThread extends Thread {
 		checkMovementSneak = new SGCheckSneak();
 		checkMovementInvalid = new SGCheckInvalidMove();
 		checkWaterwalk = new SGCheckWaterwalk();
+		checkMovementVertical = new SGCheckVertical();
 	}
 	
 	private void populateVlMap() {
@@ -144,6 +147,7 @@ public class PlayerThread extends Thread {
 		checkMovementFlight.check(diffMillis, SGCheckTag.MOVEMENT_FLIGHT, this);
 		checkMovementSneak.check(diffMillis, SGCheckTag.MOVEMENT_SNEAK, this);
 		checkWaterwalk.check(diffMillis, SGCheckTag.MOVEMENT_WATER, this);
+		checkMovementVertical.check(diffMillis, SGCheckTag.MOVEMENT_VERTICAL, this);
 		//checkMovementInvalid.check(diffMillis, SGCheckTag.MOVEMENT_INVALID, this);
 	}
 	

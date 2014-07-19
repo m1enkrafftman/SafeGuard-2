@@ -36,9 +36,10 @@ public class SGCheckFlight extends SGCheck {
 			thread.resetFlightTicks();
 			thread.lowerVL(tag);
 		}
-		if(SGMovementUtil.getFalling(thread.getPlayer()) && !onGround(thread.getPlayer())) {
+		if((thread.getFlightTicks() < FLIGHT_TICK_LIMIT) && 
+				SGMovementUtil.getFalling(thread.getPlayer()) 
+				&& !onGround(thread.getPlayer())) {
 			thread.lowerVL(tag);
-			//TODO: glide check;
 			return;
 		}
 		
