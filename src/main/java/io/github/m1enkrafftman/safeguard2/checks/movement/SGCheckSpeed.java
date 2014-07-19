@@ -43,13 +43,12 @@ public class SGCheckSpeed extends SGCheck {
 		boolean publish = false;
 		double multi = 1.0;
 		
-		if(thread.isOnIce()) multi *= 1.325;
+		if(thread.isOnIce()) multi *= 1.4;
 		
 		boolean inWeb = SGBlockUtil.isInWeb(thread); 
 		
 		if(inWeb) multi *= 0.12;
 		
-		//TODO: Potions
 		multi *= getSpeedAmplifier(thread.getPlayer());
 		
 		double deltaVL = 0.0;
@@ -71,9 +70,8 @@ public class SGCheckSpeed extends SGCheck {
 					publish = true;
 				}
 			}
-			if(cooldown == true) publish = false;
-	
 		}else {
+			multi *= 1.2;
 			if(sgPlayer.isSprinting()) {
 				if(delta > data.getSprint()*multi) {
 					deltaVL = 10*(delta-(data.getSprint()*multi));
@@ -89,7 +87,7 @@ public class SGCheckSpeed extends SGCheck {
 			}
 			if(cooldown == true) publish = false;
 		}
-		
+		if(cooldown == true) publish = false;
 		if(publish == true) {
 			if(inWeb) thread.addVL(checkTag, 10);
 			if(deltaVL > 1) {
@@ -101,6 +99,7 @@ public class SGCheckSpeed extends SGCheck {
 			thread.lowerVL(checkTag);
 			thread.setSafeLocation(sgPlayer.getLocation());
 		}
+
 	}
 
 }

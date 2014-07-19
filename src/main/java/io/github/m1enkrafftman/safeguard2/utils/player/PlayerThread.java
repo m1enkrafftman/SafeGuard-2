@@ -126,7 +126,7 @@ public class PlayerThread extends Thread {
 		while(myRun) {
 			float diffMillis = myTimer.diffMillis();
 			boolean tpCooldown = myTeleportTimer.canCheckManual(TP_COOLDOWN);
-			myCooldown = tpCooldown ? true : false;
+			myCooldown = tpCooldown ? false : true;
 			if(myTimer.canCheck(CHECK_DELTA) && tpCooldown) {
 				runChecks(diffMillis);
 			}
