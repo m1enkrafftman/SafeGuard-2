@@ -16,6 +16,7 @@ public class PermissionNodes {
 	public static final String COMBAT_SPEED				= "safeguard.combat.speed";
 	public static final String COMBAT_REACH 			= "safeguard.combat.reach";
 	public static final String COMBAT_SELFHIT 			= "safeguard.combat.selfhit";
+	public static final String COMBAT_POSTMORTEM		= "safeguard.combat.postmortem";
 
 	public static final String INFO_ALERTS				= "safeguard.info.alerts";
 	public static final String INFO_ADMIN				= "safeguard.info.admin";
