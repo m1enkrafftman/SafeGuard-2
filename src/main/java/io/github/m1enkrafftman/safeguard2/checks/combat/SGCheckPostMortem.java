@@ -22,6 +22,7 @@ public class SGCheckPostMortem extends SGCheck {
 			if(sgPlayer.getHealth() <= 0) {
 				publish = true;
 				SafeGuard2.getSafeGuard().getPlayerMap().get(sgPlayer).addVL(checkTag, 25);
+				event.setCancelled(true);
 			}else {
 				SafeGuard2.getSafeGuard().getPlayerMap().get(sgPlayer).lowerVL(checkTag);
 			}
