@@ -27,6 +27,8 @@ public class PlayerThread extends Thread {
 	
 	private Timer myTimer;
 	private Timer myTeleportTimer;
+	private Timer myFightTimer;
+	private Timer myPlaceTimer;
 	
 	private Map<SGCheckTag, Double> myVlMap;
 	
@@ -74,6 +76,8 @@ public class PlayerThread extends Thread {
 		myLastSafeLocation = myPlayer.getLocation();
 		myTimer = new Timer();
 		myTeleportTimer = new Timer();
+		myFightTimer = new Timer();
+		myPlaceTimer = new Timer();
 		myVlMap = new HashMap<SGCheckTag, Double>();
 		myFlightTicks = 0;
 		myLiquidTicks = 0;
@@ -136,6 +140,14 @@ public class PlayerThread extends Thread {
 	
 	public void shutoff() {
 		myRun = false;
+	}
+	
+	public Timer getFightTimer() {
+		return myFightTimer;
+	}
+	
+	public Timer getPlaceTimer() {
+		return myPlaceTimer;
 	}
 	
 	@Override

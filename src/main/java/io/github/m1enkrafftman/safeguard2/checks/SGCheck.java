@@ -26,6 +26,7 @@ public class SGCheck {
 	public void check(float millisDif, SGCheckTag checkTag, PlayerThread thread){};
 	public void check(float millisDif, SGCheckTag checkTag, PlayerThread thread, boolean cooldown){};
 	public void check(SGCheckTag checkTag, Event event){};
+	public void check(SGCheckTag checkTag, Event event, PlayerThread thread){};
 	
 	public void publishCheck(SGCheckTag tag, PlayerThread player) {
 		if(player.getVLTruncated(tag) <= 0.99) return;
