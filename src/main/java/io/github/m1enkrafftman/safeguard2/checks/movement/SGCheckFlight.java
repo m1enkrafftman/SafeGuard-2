@@ -24,7 +24,7 @@ public class SGCheckFlight extends SGCheck {
 		
 		if(SGPermissions.hasPermission(thread.getPlayer(), PermissionNodes.MOVEMENT_FLIGHT)) return;
 		
-		double verticalMoveDelta = SGMovementUtil.getDistanceY(thread.getLastLocation(), thread.getPlayer().getLocation(), false);
+		double verticalMoveDelta = SGMovementUtil.getDistanceY(thread.getPlayer().getLocation(), thread.getLastLocation(), false);
 		//boolean onGround = (thread.getPlayer().isSneaking() ? onGroundSneak(thread.getPlayer()) : onGround(thread.getPlayer()));
 		boolean onGround = onGroundSneak(thread.getPlayer());
 		if(!onGround && verticalMoveDelta >= 0.0) {
