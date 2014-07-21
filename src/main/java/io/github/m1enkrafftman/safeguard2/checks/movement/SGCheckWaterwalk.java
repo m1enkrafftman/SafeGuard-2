@@ -24,7 +24,7 @@ public class SGCheckWaterwalk extends SGCheck {
 		boolean publish = false;
 		double delta = MathHelper.getHorizontalDistance(thread.getPlayer().getLocation(), thread.getLastLocation());
 		double vert = SGMovementUtil.getDistanceY(thread.getPlayer().getLocation(), thread.getLastLocation(), false);
-		if(inLiquid(sgPlayer) && !onGround(sgPlayer)) {
+		if(inLiquid(sgPlayer)) {
 			thread.addLiquidTick();
 			if(thread.getLiquidTicks() > IN_LIQUID_BUFFER) {
 				if(delta > LEGAL_DELTA) {

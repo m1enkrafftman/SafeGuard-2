@@ -11,7 +11,7 @@ public class SGCheckFlight extends SGCheck {
 	
 	private double myLastYMove = 0.0;
 	
-	public static double FLIGHT_TICK_LIMIT = 6;
+	public static double FLIGHT_TICK_LIMIT = 5;
 	
 	@Override
 	public void check(float millisDif, SGCheckTag tag, PlayerThread thread) {

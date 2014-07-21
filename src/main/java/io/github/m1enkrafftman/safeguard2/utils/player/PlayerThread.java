@@ -173,7 +173,7 @@ public class PlayerThread extends Thread {
 		checkMovementFlight.check(diffMillis, SGCheckTag.MOVEMENT_FLIGHT, this);
 		checkMovementSneak.check(diffMillis, SGCheckTag.MOVEMENT_SNEAK, this, myCooldown);
 		checkWaterwalk.check(diffMillis, SGCheckTag.MOVEMENT_WATER, this);
-		checkMovementVertical.check(diffMillis, SGCheckTag.MOVEMENT_VERTICAL, this);
+		checkMovementVertical.check(diffMillis, SGCheckTag.MOVEMENT_VERTICAL, this, myCooldown);
 		checkMovementInvalid.check(diffMillis, SGCheckTag.MOVEMENT_INVALID, this);
 	}
 	
