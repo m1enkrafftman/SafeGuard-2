@@ -85,6 +85,7 @@ public class PlayerThread extends Thread {
 		myCooldown = false;
 		this.initChecks();
 		this.populateVlMap();
+		myTeleportTimer.updateLastTime();
 	}
 	
 	private void initChecks() {

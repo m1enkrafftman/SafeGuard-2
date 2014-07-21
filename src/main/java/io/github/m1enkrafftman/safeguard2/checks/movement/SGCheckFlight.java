@@ -33,7 +33,7 @@ public class SGCheckFlight extends SGCheck {
 				thread.addVL(tag, (verticalMoveDelta * 10) + 5);
 				publish = true;
 			}
-		}else {
+		}else if(onGround){
 			thread.resetFlightTicks();
 			thread.lowerVL(tag);
 		}

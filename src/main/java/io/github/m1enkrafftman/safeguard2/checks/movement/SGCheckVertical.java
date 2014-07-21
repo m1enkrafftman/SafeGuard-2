@@ -12,8 +12,8 @@ import org.bukkit.entity.Player;
 public class SGCheckVertical extends SGCheck {
 	
 	private static final int ON_LADDER_BUFFER = 7;
-	private static final double LEGAL_LADDER_VERTICAL = 0.325;
-	private static final double LEGAL_DELTA_VERTICAL = 1.75;
+	private static final double LEGAL_LADDER_VERTICAL = 0.35;
+	private static final double LEGAL_DELTA_VERTICAL = 1.325;
 	
 	@Override
 	public void check(float millisDif, SGCheckTag tag, PlayerThread thread, boolean cooldown) {

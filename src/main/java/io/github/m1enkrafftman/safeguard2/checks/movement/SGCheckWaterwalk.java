@@ -14,8 +14,8 @@ public class SGCheckWaterwalk extends SGCheck {
 	
 	private static final int IN_LIQUID_BUFFER = 7;
 	
-	private static final double LEGAL_DELTA = 0.275;
-	private static final double LEGAL_DELTA_VERTICAL = 0.3;
+	private static final double LEGAL_DELTA = 0.35;
+	private static final double LEGAL_DELTA_VERTICAL = 0.35;
 	
 	@Override
 	public void check(float millisDif, SGCheckTag checkTag, PlayerThread thread) {
@@ -24,6 +24,9 @@ public class SGCheckWaterwalk extends SGCheck {
 		boolean publish = false;
 		double delta = MathHelper.getHorizontalDistance(thread.getPlayer().getLocation(), thread.getLastLocation());
 		double vert = SGMovementUtil.getDistanceY(thread.getPlayer().getLocation(), thread.getLastLocation(), false);
+		
+		delta = thread.getPlayer().isSprinting() ? delta*0.75 : delta;
+		
 		if(inLiquid(sgPlayer)) {
 			thread.addLiquidTick();
 			if(thread.getLiquidTicks() > IN_LIQUID_BUFFER) {
