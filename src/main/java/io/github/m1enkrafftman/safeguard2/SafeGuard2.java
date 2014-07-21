@@ -40,18 +40,13 @@ public final class SafeGuard2 extends JavaPlugin {
 		myGatherer = new DataGatherer(this);
 		myDataConfig = new DataConfiguration(this);
 		safeguard2 = this;
-		myFileManager = new FileManager(this);
-		readConfig();
+		updateConfig();
 		getCommand("safeguard").setExecutor(sgCommandManager = new SGCommandManager());
 		myOutputManager.log("Version " + this.getDescription().getVersion() + " has successfully loaded.");
 	}
 	
-	public void readConfig() {
-		myFileManager.read();		
-	}
-	
-	public void writeConfig() {
-		myFileManager.write();
+	public void updateConfig() {
+		myDataConfig.loadConfig();	
 	}
 	
 	private void loadListeners() {
@@ -79,14 +74,22 @@ public final class SafeGuard2 extends JavaPlugin {
 	
 	public void flush() {
 		myOutputManager.log("Flushing...");
+		stopAllThreads();
 		this.handleThreadLoading();
 		myOutputManager.log("Flushed.");
 	}
 	
+	private void stopAllThreads() {
+		for(PlayerThread t : myThreadMap.values()) {
+			t.shutoff();
+		}
+	}
+	
 	@Override
 	public void onDisable() {
+		stopAllThreads();
 		myThreadMap.clear();
-		writeConfig();
+		updateConfig();
 		myOutputManager.log("Version " + this.getDescription().getVersion() + " has successfully unloaded.");
 	}
 

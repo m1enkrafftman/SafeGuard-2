@@ -116,6 +116,12 @@ public class SGCheck {
 	/** Returns whether the player is on the ground. */
 	public static boolean onGround(Player sgPlayer) {
 		Block under = (sgPlayer.getLocation().subtract(0, 0.20D, 0).getBlock());
+		boolean airborne = under.isEmpty();
+		return ((airborne && !isAboveStairs(sgPlayer) && !isOnFence(sgPlayer)) ? false : true);
+	}
+	
+	public static boolean onGroundSneak(Player sgPlayer) {
+		Block under = (sgPlayer.getLocation().subtract(0, 0.20D, 0).getBlock());
 		boolean airborne = under.isEmpty() && under.getRelative(BlockFace.NORTH).isEmpty()
 				&& under.getRelative(BlockFace.NORTH_EAST).isEmpty() 
 				&& under.getRelative(BlockFace.EAST).isEmpty()

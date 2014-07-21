@@ -3,6 +3,7 @@ package io.github.m1enkrafftman.safeguard2.checks.movement;
 import io.github.m1enkrafftman.safeguard2.checks.SGCheck;
 import io.github.m1enkrafftman.safeguard2.checks.SGCheckTag;
 import io.github.m1enkrafftman.safeguard2.core.PermissionNodes;
+import io.github.m1enkrafftman.safeguard2.core.SGPermissions;
 import io.github.m1enkrafftman.safeguard2.utils.SGMovementUtil;
 import io.github.m1enkrafftman.safeguard2.utils.player.PlayerThread;
 
@@ -21,11 +22,12 @@ public class SGCheckFlight extends SGCheck {
 		if(thread.getPlayer().isInsideVehicle()) return;
 		if(isCreative(thread.getPlayer()) && isCreativeFlight(thread.getPlayer())) return;
 		
-		if(thread.getPlayer().hasPermission(PermissionNodes.MOVEMENT_FLIGHT) || thread.getPlayer().isOp()) return;
+		if(SGPermissions.hasPermission(thread.getPlayer(), PermissionNodes.MOVEMENT_FLIGHT)) return;
 		
-		double verticalMoveDelta = SGMovementUtil.getDistanceVertical(thread.getLastLocation(), thread.getPlayer().getLocation());
-		
-		if(!onGround(thread.getPlayer()) && this.myLastYMove >= 0.0) {
+		double verticalMoveDelta = SGMovementUtil.getDistanceY(thread.getLastLocation(), thread.getPlayer().getLocation(), false);
+		//boolean onGround = (thread.getPlayer().isSneaking() ? onGroundSneak(thread.getPlayer()) : onGround(thread.getPlayer()));
+		boolean onGround = onGroundSneak(thread.getPlayer());
+		if(!onGround && verticalMoveDelta >= 0.0) {
 			thread.addFlightTick();
 			if(thread.getFlightTicks() > FLIGHT_TICK_LIMIT) {
 				thread.addVL(tag, (verticalMoveDelta * 10) + 5);

@@ -20,7 +20,6 @@ public class SGCommandReconfigure extends SGCommand {
 	public boolean execute() {
 		if (this.arguments.size() == 0) {
 			SafeGuard2.getSafeGuard().getDataConfig().reconfigure();
-			SafeGuard2.getSafeGuard().writeConfig();
 			sendChatMessage(sender, "Heuristic data reconfigured."); 
 			return true;
 		}else {

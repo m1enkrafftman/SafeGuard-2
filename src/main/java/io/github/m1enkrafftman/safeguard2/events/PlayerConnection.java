@@ -14,6 +14,7 @@ public class PlayerConnection implements Listener {
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		SafeGuard2.getSafeGuard().getPlayerMap().put(event.getPlayer(), new PlayerThread(event.getPlayer()));
 		SafeGuard2.getSafeGuard().getPlayerMap().get(event.getPlayer()).start();
+		SafeGuard2.getSafeGuard().getPlayerMap().get(event.getPlayer()).onTeleport();
 		SafeGuard2.getSafeGuard().getOutput().log("Player " + event.getPlayer().getDisplayName() + " has logged in; thread added and started.");
 	}
 	

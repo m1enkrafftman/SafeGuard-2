@@ -12,11 +12,11 @@ import org.bukkit.entity.Player;
 public class SGCheckVertical extends SGCheck {
 	
 	private static final int ON_LADDER_BUFFER = 7;
-	
-	private static final double LEGAL_DELTA_VERTICAL = 0.325;
+	private static final double LEGAL_LADDER_VERTICAL = 0.325;
+	private static final double LEGAL_DELTA_VERTICAL = 1.75;
 	
 	@Override
-	public void check(float millisDif, SGCheckTag tag, PlayerThread thread) {
+	public void check(float millisDif, SGCheckTag tag, PlayerThread thread, boolean cooldown) {
 		boolean publish = false;
 		if(thread.getPlayer().isInsideVehicle()) return;
 		if(isCreative(thread.getPlayer()) && isCreativeFlight(thread.getPlayer())) return;
@@ -28,17 +28,21 @@ public class SGCheckVertical extends SGCheck {
 		if(isOnLadder(sgPlayer)) {
 			thread.addLadderTick();
 			if(thread.getLadderTicks() > ON_LADDER_BUFFER) {
-				if(verticalMoveDelta > LEGAL_DELTA_VERTICAL) {
+				if(verticalMoveDelta > LEGAL_LADDER_VERTICAL) {
 					publish = true;
-					thread.addVL(tag, (10*(verticalMoveDelta-LEGAL_DELTA_VERTICAL) + 5));
+					thread.addVL(tag, (10*(verticalMoveDelta-LEGAL_LADDER_VERTICAL) + 5));
 				}
 			}
 		}else {
 			thread.resetLadderTicks();
+			if(verticalMoveDelta >= LEGAL_DELTA_VERTICAL) {
+				publish = true;
+				thread.addVL(tag, (10*(verticalMoveDelta-LEGAL_DELTA_VERTICAL) + 5));
+			}
 		}
-		
+		if(cooldown == true) publish = false;
 		if(publish == true) {
-			super.publishCheck(tag, thread);
+			this.publishCheck(tag, thread);
 		}else {
 			thread.lowerVL(tag);
 		}
