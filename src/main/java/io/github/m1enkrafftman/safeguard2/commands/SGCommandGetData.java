@@ -10,6 +10,7 @@ public class SGCommandGetData extends SGCommand {
 	public SGCommandGetData() {
 		this.name = "data";
 		this.argumentCount = 1;
+		this.consoleExecute = true;
 		this.permission = PermissionNodes.INFO_ADMIN;
 		this.usage = new StringBuilder().append(ChatColor.GOLD).append("/safeguard data").toString();
 		this.description = "Prints gathered heuristic information to the console.";

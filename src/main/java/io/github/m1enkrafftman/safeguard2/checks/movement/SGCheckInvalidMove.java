@@ -43,6 +43,7 @@ public class SGCheckInvalidMove extends SGCheck {
 		
 		if(publish == true) {
 			this.publishCheck(checkTag, thread);
+			thread.setLocation(thread.getSafeLocation());
 		}else {
 			thread.lowerVL(checkTag);
 		}

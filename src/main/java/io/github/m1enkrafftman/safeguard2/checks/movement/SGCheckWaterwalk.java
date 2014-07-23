@@ -45,6 +45,7 @@ public class SGCheckWaterwalk extends SGCheck {
 		}
 		
 		if(publish == true) {
+			thread.setLocation(thread.getSafeLocation());
 			this.publishCheck(checkTag, thread);
 		}
 		

@@ -1,4 +1,4 @@
-package io.github.m1enkrafftman.safeguard2.heuristics;
+package io.github.m1enkrafftman.safeguard2.core;
 
 import io.github.m1enkrafftman.safeguard2.SafeGuard2;
 
@@ -8,14 +8,19 @@ public class DataConfiguration {
 	
 	private SafeGuard2 myPlugin;
 	
-	private double walkDistance = 0.82;
-	private double sprintDistance = 1.12;
-	private double sneakDistance = 0.45;
+	private double walkDistance = 1.0;
+	private double sprintDistance = 1.4;
+	private double sneakDistance = 0.5;
+	
+	private boolean resetMove = false;
+	
 	private FileConfiguration myConfig;
 	
 	private static final String SNEAK_PATH = "safeguard.data.sneak";
 	private static final String WALK_PATH = "safeguard.data.walk";
 	private static final String SPRINT_PATH = "safeguard.data.sprint";
+	
+	private static final String RESET_PATH = "safeguard.checks.resetmove";
 	
 	public DataConfiguration(SafeGuard2 plugin) {
 		myPlugin = plugin;
@@ -41,6 +46,11 @@ public class DataConfiguration {
 		}else {
 			this.setSprint(myConfig.getDouble(SPRINT_PATH));
 		}
+		if(!myConfig.contains(RESET_PATH)) {
+			myConfig.set(RESET_PATH, resetMove);
+		}else {
+			this.setReset(myConfig.getBoolean(RESET_PATH));
+		}
 		saveConfig();
 	}
 	
@@ -49,12 +59,13 @@ public class DataConfiguration {
 	}
 	
 	public void reconfigure() {
-		walkDistance = myPlugin.getDataGatherer().walk();
-		sneakDistance = myPlugin.getDataGatherer().sneak();
-		sprintDistance = myPlugin.getDataGatherer().sprint();
+		walkDistance = myPlugin.getDataGatherer().walk()*1.2;
+		sneakDistance = myPlugin.getDataGatherer().sneak()*1.125;
+		sprintDistance = myPlugin.getDataGatherer().sprint()*1.2;
 		myConfig.set(SNEAK_PATH, sneakDistance);
 		myConfig.set(WALK_PATH, walkDistance);
 		myConfig.set(SPRINT_PATH, sprintDistance);
+		myConfig.set(RESET_PATH, resetMove);
 		saveConfig();
 	}
 	
@@ -80,6 +91,14 @@ public class DataConfiguration {
 	
 	public double getSprint() {
 		return sprintDistance;
+	}
+	
+	public void setReset(boolean b) {
+		resetMove = b;
+	}
+	
+	public boolean getReset() {
+		return resetMove;
 	}
 	
 }

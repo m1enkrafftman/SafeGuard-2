@@ -46,7 +46,8 @@ public class SGCheckFlight extends SGCheck {
 		
 		this.myLastYMove = verticalMoveDelta;
 		if(publish == true) {
-			super.publishCheck(tag, thread);
+			this.publishCheck(tag, thread);
+			thread.setLocation(thread.getSafeLocation());
 		}
 	}
 

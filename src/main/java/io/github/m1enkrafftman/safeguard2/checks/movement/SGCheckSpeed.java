@@ -3,9 +3,9 @@ package io.github.m1enkrafftman.safeguard2.checks.movement;
 import io.github.m1enkrafftman.safeguard2.SafeGuard2;
 import io.github.m1enkrafftman.safeguard2.checks.SGCheck;
 import io.github.m1enkrafftman.safeguard2.checks.SGCheckTag;
+import io.github.m1enkrafftman.safeguard2.core.DataConfiguration;
 import io.github.m1enkrafftman.safeguard2.core.PermissionNodes;
 import io.github.m1enkrafftman.safeguard2.core.SGPermissions;
-import io.github.m1enkrafftman.safeguard2.heuristics.DataConfiguration;
 import io.github.m1enkrafftman.safeguard2.utils.MathHelper;
 import io.github.m1enkrafftman.safeguard2.utils.SGBlockUtil;
 import io.github.m1enkrafftman.safeguard2.utils.SGMovementUtil;
@@ -72,12 +72,11 @@ public class SGCheckSpeed extends SGCheck {
 			if(inWeb) thread.addVL(checkTag, 10);
 			if(deltaVL > 1) {
 				this.publishCheck(checkTag, thread);
-				thread.resetMove();
+				thread.setLocation(thread.getSafeLocation());
 			}
 
 		} else {
 			thread.lowerVL(checkTag);
-			thread.setSafeLocation(sgPlayer.getLocation());
 		}
 
 	}

@@ -1,5 +1,7 @@
 package io.github.m1enkrafftman.safeguard2.utils.player;
 
+import io.github.m1enkrafftman.safeguard2.SafeGuard2;
+import io.github.m1enkrafftman.safeguard2.checks.SGCheck;
 import io.github.m1enkrafftman.safeguard2.checks.SGCheckTag;
 import io.github.m1enkrafftman.safeguard2.checks.movement.SGCheckFlight;
 import io.github.m1enkrafftman.safeguard2.checks.movement.SGCheckInvalidMove;
@@ -157,7 +159,7 @@ public class PlayerThread extends Thread {
 			float diffMillis = myTimer.diffMillis();
 			boolean tpCooldown = myTeleportTimer.canCheckManual(TP_COOLDOWN);
 			myCooldown = tpCooldown ? false : true;
-			if(myTimer.canCheck(CHECK_DELTA) && tpCooldown) {
+			if(myTimer.canCheck(CHECK_DELTA)) {
 				runChecks(diffMillis);
 			}
 		}
@@ -170,12 +172,20 @@ public class PlayerThread extends Thread {
 	}
 	
 	private void runMovementChecks(float diffMillis) {
+		if(inSafeLocation(myPlayer)) this.setSafeLocation(myPlayer.getLocation());
+		
 		checkMovementSpeed.check(diffMillis, SGCheckTag.MOVEMENT_SPEED, this, myCooldown);
 		checkMovementFlight.check(diffMillis, SGCheckTag.MOVEMENT_FLIGHT, this);
 		checkMovementSneak.check(diffMillis, SGCheckTag.MOVEMENT_SNEAK, this, myCooldown);
 		checkWaterwalk.check(diffMillis, SGCheckTag.MOVEMENT_WATER, this);
 		checkMovementVertical.check(diffMillis, SGCheckTag.MOVEMENT_VERTICAL, this, myCooldown);
 		checkMovementInvalid.check(diffMillis, SGCheckTag.MOVEMENT_INVALID, this);
+	}
+	
+	private static boolean inSafeLocation(Player myPlayer) {
+		boolean b = (SGCheck.onGroundSneak(myPlayer) || SGCheck.inLiquid(myPlayer) || SGCheck.isAboveStairs(myPlayer)
+				|| SGCheck.isOnFence(myPlayer) || SGCheck.isOnLadder(myPlayer) || SGCheck.isOnSnow(myPlayer));
+		return b;
 	}
 	
 	public void addVL(SGCheckTag tag, double delta) {
@@ -200,10 +210,16 @@ public class PlayerThread extends Thread {
 		myLastLocation = myLastSafeLocation;
 	}
 	
+	public void setLocation(Location l) {
+		if(SafeGuard2.getSafeGuard().getDataConfig().getReset()) {
+			this.onTeleport();
+			myPlayer.teleport(l);
+			myLastLocation = l;
+		}
+	}
+	
 	public void onTeleport() {
 		myTeleportTimer.updateLastTime();
-		myLastLocation = myPlayer.getLocation();
-		myLastSafeLocation = myPlayer.getLocation();
 	}
 
 	/** Sets the initial health upon falling */

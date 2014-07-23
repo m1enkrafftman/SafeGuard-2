@@ -1,7 +1,7 @@
 package io.github.m1enkrafftman.safeguard2.utils;
 
 import io.github.m1enkrafftman.safeguard2.SafeGuard2;
-import io.github.m1enkrafftman.safeguard2.heuristics.DataConfiguration;
+import io.github.m1enkrafftman.safeguard2.core.DataConfiguration;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

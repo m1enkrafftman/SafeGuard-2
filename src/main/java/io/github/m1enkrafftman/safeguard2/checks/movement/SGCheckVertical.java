@@ -43,6 +43,7 @@ public class SGCheckVertical extends SGCheck {
 		if(cooldown == true) publish = false;
 		if(publish == true) {
 			this.publishCheck(tag, thread);
+			thread.setLocation(thread.getSafeLocation());
 		}else {
 			thread.lowerVL(tag);
 		}

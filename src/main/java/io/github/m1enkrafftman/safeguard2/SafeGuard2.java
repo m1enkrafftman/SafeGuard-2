@@ -1,12 +1,12 @@
 package io.github.m1enkrafftman.safeguard2;
 
 import io.github.m1enkrafftman.safeguard2.commands.SGCommandManager;
+import io.github.m1enkrafftman.safeguard2.core.DataConfiguration;
 import io.github.m1enkrafftman.safeguard2.events.PlayerConnection;
 import io.github.m1enkrafftman.safeguard2.events.PlayerTeleport;
 import io.github.m1enkrafftman.safeguard2.events.blocks.PlayerBlockBreak;
 import io.github.m1enkrafftman.safeguard2.events.blocks.PlayerBlockPlace;
 import io.github.m1enkrafftman.safeguard2.events.combat.PlayerDamage;
-import io.github.m1enkrafftman.safeguard2.heuristics.DataConfiguration;
 import io.github.m1enkrafftman.safeguard2.heuristics.DataGatherer;
 import io.github.m1enkrafftman.safeguard2.utils.FileManager;
 import io.github.m1enkrafftman.safeguard2.utils.OutputManager;
@@ -89,7 +89,6 @@ public final class SafeGuard2 extends JavaPlugin {
 	public void onDisable() {
 		stopAllThreads();
 		myThreadMap.clear();
-		updateConfig();
 		myOutputManager.log("Version " + this.getDescription().getVersion() + " has successfully unloaded.");
 	}
 
